@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+<Configure id="Webapp" class="org.eclipse.jetty.webapp.WebAppContext">
+
+    <Call name="setInitParameter">
+        <Arg>plugins.xml</Arg>
+        <Arg><SystemProperty name="basedir"/>/target/reststop/plugins.xml</Arg>
+    </Call>
+
+    <Call name="setInitParameter">
+        <Arg>pluginConfigurationDirectory</Arg>
+        <Arg><SystemProperty name="basedir"/>/src/config</Arg>
+    </Call>
+
+</Configure>
