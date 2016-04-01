@@ -51,6 +51,11 @@
                         </plugin>
                         <plugin>
                             <groupId>no.lillehaug.landingsopplysninger</groupId>
+                            <artifactId>client</artifactId>
+                            <version>${project.version}</version>
+                        </plugin>
+                        <plugin>
+                            <groupId>no.lillehaug.landingsopplysninger</groupId>
                             <artifactId>landingsopplysninger-api</artifactId>
                             <version>${project.version}</version>
                         </plugin>
