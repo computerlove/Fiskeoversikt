@@ -10,7 +10,8 @@
     </parent>
     <packaging>war</packaging>
 
-    <artifactId>webapp</artifactId>
+    <artifactId>landingsopplysninger-webapp</artifactId>
+    <description>Scrapes and saved information from http://www.rafisklaget.no official fish delivery information</description>
 
     <dependencies>
         <dependency>
@@ -96,6 +97,7 @@
                             <version>${reststop.version}</version>
                         </plugin>
                     </plugins>
+                    <maintainer>Marvin B. Lillehaug &lt;marvin.lillehaug@gmail.com&gt;</maintainer>
                 </configuration>
                 <executions>
                     <execution>
