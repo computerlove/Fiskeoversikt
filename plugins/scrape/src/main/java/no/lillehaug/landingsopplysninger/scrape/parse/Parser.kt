@@ -13,6 +13,7 @@ import java.util.*
 
 class Parser (val url: String){
     val httpclient = HttpClients.createDefault();
+    val vesselPattern = "[^(]*\\((.*)\\)".toRegex().toPattern()
 
     fun fetchAndParseForRegistration(registration: String) : List<Leveringslinje> {
 
@@ -50,10 +51,12 @@ class Parser (val url: String){
             val kvalitet = columns[6].html()
             val nettovekt = columns[7].html()
 
-            previousFartøy = defaultOrValue(previousFartøy, fartøy)
+            val matcher = vesselPattern.matcher(fartøy)
+            val fartøyKjennemerke = if(matcher.matches()) matcher.group(1) else fartøy
+
+            previousFartøy = defaultOrValue(previousFartøy, fartøyKjennemerke)
             previousLandingsdato = defaultOrValue(previousLandingsdato, landingsdato)
             previousMottak = defaultOrValue(previousMottak, mottak)
-
             entries.add(Entry(previousFartøy, previousLandingsdato, previousMottak, fiskeslag, tilstand, størrelse, kvalitet, nettovekt))
         }
 
