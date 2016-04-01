@@ -20,13 +20,13 @@ class Parser (val url: String){
         val entity = UrlEncodedFormEntity(
                 listOf(
                         BasicNameValuePair("p_arg_names", "p_regmerke"),
-                        BasicNameValuePair("paramValues", registration)
+                        BasicNameValuePair("p_arg_values", registration)
                 ))
 
         val httpPost = HttpPost(url)
         httpPost.entity = entity
         val response = httpclient.execute(httpPost)
-        var html = IOUtils.toString(response.entity.content)
+        var html = IOUtils.toString(response.entity.content, "ISO-8859-1")
         return parseFromHtml(html)
     }
 
@@ -34,7 +34,6 @@ class Parser (val url: String){
         val document = Jsoup.parse(html)
         val tables = document.getElementsByTag("table")
         val lines = tables.select("tr")
-        val header = lines.removeAt(0)
 
         val entries = mutableListOf<Entry>()
         var previousFartøy : String = "Ukjent"
@@ -42,22 +41,24 @@ class Parser (val url: String){
         var previousMottak : String = "Ukjent"
         for (line in lines) {
             val columns = line.select("td")
-            val fartøy = columns[0].html()
-            val landingsdato = columns[1].html()
-            val mottak = columns[2].html()
-            val fiskeslag = columns[3].html()
-            val tilstand = columns[4].html()
-            val størrelse = columns[5].html()
-            val kvalitet = columns[6].html()
-            val nettovekt = columns[7].html()
+            if (columns.size > 0) {
+                val fartøy = columns[0].html()
+                val landingsdato = columns[1].html()
+                val mottak = columns[2].html()
+                val fiskeslag = columns[3].html()
+                val tilstand = columns[4].html()
+                val størrelse = columns[5].html()
+                val kvalitet = columns[6].html()
+                val nettovekt = columns[7].html()
 
-            val matcher = vesselPattern.matcher(fartøy)
-            val fartøyKjennemerke = if(matcher.matches()) matcher.group(1) else fartøy
+                val matcher = vesselPattern.matcher(fartøy)
+                val fartøyKjennemerke = if(matcher.matches()) matcher.group(1) else fartøy
 
-            previousFartøy = defaultOrValue(previousFartøy, fartøyKjennemerke)
-            previousLandingsdato = defaultOrValue(previousLandingsdato, landingsdato)
-            previousMottak = defaultOrValue(previousMottak, mottak)
-            entries.add(Entry(previousFartøy, previousLandingsdato, previousMottak, fiskeslag, tilstand, størrelse, kvalitet, nettovekt))
+                previousFartøy = defaultOrValue(previousFartøy, fartøyKjennemerke)
+                previousLandingsdato = defaultOrValue(previousLandingsdato, landingsdato)
+                previousMottak = defaultOrValue(previousMottak, mottak)
+                entries.add(Entry(previousFartøy, previousLandingsdato, previousMottak, fiskeslag, tilstand, størrelse, kvalitet, nettovekt))
+            }
         }
 
         val datePattern = DateTimeFormatter.ofPattern("dd-MMM-yy", Locale.forLanguageTag("NO"))

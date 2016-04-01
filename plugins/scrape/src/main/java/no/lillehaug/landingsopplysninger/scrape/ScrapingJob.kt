@@ -7,9 +7,9 @@ class ScrapingJob(val scraper: Scraper, val repository: LandingsopplysningerRepo
     val log = LoggerFactory.getLogger(javaClass)
 
     fun scrapeForRegistrations() {
-        log.info("Running scrapeForRegistrations")
-        registrations.forEach {
-            scrapeForRegistration(it)
+        log.info("Running scrapeForRegistrations for {}", registrations)
+        for (registration in registrations) {
+            scrapeForRegistration(registration)
         }
     }
 

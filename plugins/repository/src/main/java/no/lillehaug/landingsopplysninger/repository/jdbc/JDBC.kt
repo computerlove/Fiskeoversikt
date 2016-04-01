@@ -9,24 +9,24 @@ class JDBC {
         val log = LoggerFactory.getLogger(JDBC::class.java)
 
         @JvmStatic
-        fun <T> readOnly(ds: DataSource, action: (c: Connection) -> T) : T {
+        fun <T> readOnly(ds: DataSource, action: (c: Connection) -> T): T {
             val connection = ds.connection
             val isReadOnly = connection.isReadOnly
             connection.isReadOnly = true
             return trywr(connection) {
-                val result = action.invoke(connection)
+                val result = action(connection)
                 connection.isReadOnly = isReadOnly
                 result
             }
         }
 
         @JvmStatic
-        fun <T> transactional(ds: DataSource, action: (c: Connection) -> T) : T {
+        fun <T> transactional(ds: DataSource, action: (c: Connection) -> T): T {
             val connection = ds.connection
             connection.autoCommit = false
             return trywr(connection) {
                 try {
-                    val result = action.invoke(connection)
+                    val result = action(connection)
                     connection.commit()
                     result
                 } catch(e: Exception) {
@@ -37,9 +37,12 @@ class JDBC {
             }
         }
 
-        inline fun <T:AutoCloseable,R> trywr(closeable: T, block: (T) -> R): R {
+        inline fun <T : AutoCloseable, R> trywr(closeable: T, block: (T) -> R): R {
             try {
                 return block(closeable);
+            } catch (e: Exception) {
+                log.error("Error", e)
+                throw e
             } finally {
                 closeable.close()
             }

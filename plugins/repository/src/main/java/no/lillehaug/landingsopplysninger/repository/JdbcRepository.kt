@@ -58,7 +58,7 @@ class JdbcRepository(val database: Database) : LandingsopplysningerRepository {
             ps.setString(1, registration)
             val rs = ps.executeQuery()
             if(rs.next()) {
-                rs.getDate("landingsdato").toLocalDate()
+                rs.getDate("landingsdato")?.toLocalDate() ?: LocalDate.MIN
             } else {
                 LocalDate.MIN
             }
