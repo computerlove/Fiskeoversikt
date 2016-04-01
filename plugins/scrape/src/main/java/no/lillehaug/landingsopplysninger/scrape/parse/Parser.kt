@@ -11,8 +11,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class Parser (url: String){
-    val url = url
+class Parser (val url: String){
     val httpclient = HttpClients.createDefault();
 
     fun fetchAndParseForRegistration(registration: String) : List<Leveringslinje> {

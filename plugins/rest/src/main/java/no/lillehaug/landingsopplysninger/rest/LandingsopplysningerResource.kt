@@ -7,8 +7,7 @@ import javax.ws.rs.Path
 import javax.ws.rs.core.Response
 
 @Path("landingsopplysninger")
-class LandingsopplysningerResource (repository: LandingsopplysningerRepository){
-    val repository = repository
+class LandingsopplysningerResource (val repository: LandingsopplysningerRepository){
 
     @GET
     fun alleLeveringslinjer() : Response {
