@@ -7,9 +7,8 @@ import org.slf4j.LoggerFactory
 import java.sql.Connection
 import javax.sql.DataSource
 
-class Database(datasource : DataSource) {
+class Database(val datasource : DataSource) {
     val flyway : Flyway
-    val datasource = datasource
 
     init {
         flyway = Flyway()

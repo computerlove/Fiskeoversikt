@@ -6,6 +6,6 @@
 
     <context-param>
         <param-name>applicationName</param-name>
-        <param-value>landingsopplysninger</param-value>
+        <param-value>landingsopplysninger-webapp</param-value>
     </context-param>
 </web-app>

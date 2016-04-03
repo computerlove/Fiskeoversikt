@@ -8,6 +8,7 @@ import org.kantega.reststop.api.Plugin;
 
 @Plugin
 public class RepositoryPlugin {
+
     @Export
     final LandingsopplysningerRepository repository;
 
