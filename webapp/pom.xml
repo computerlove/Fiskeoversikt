@@ -153,6 +153,17 @@
                     </webAppConfig>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <goals/>
+                <configuration>
+                    <preparationGoals>
+                        <preparationGoal>reststop:dist-debian</preparationGoal>
+                    </preparationGoals>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

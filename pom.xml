@@ -12,7 +12,7 @@
     <url>https://github.com/computerlove/Fiskeoversikt</url>
 
     <scm>
-        <connection>git@github.com:computerlove/Fiskeoversikt.git</connection>
+        <connection>scm:git:git@github.com:computerlove/Fiskeoversikt.git</connection>
     </scm>
 
     <properties>
