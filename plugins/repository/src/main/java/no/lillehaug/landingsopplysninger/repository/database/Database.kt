@@ -44,9 +44,9 @@ class Database(val datasource : DataSource) {
         }
 
         private fun createDataSource(driver: String, url: String, username: String, password: String) : DataSource {
-            Class.forName(driver) // need to do this for some reason
             log.info("Creating DataSource for url: $url with username $username and driver: $driver")
             val ds = HikariDataSource()
+            ds.setDriverClassName(driver)
             ds.username = username
             ds.jdbcUrl = url
             ds.username = username
