@@ -19,6 +19,7 @@
         <reststop.version>2.4-SNAPSHOT</reststop.version>
         <kotlin.version>1.0.1</kotlin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <slf4j-api.version>1.7.12</slf4j-api.version>
     </properties>
 
     <modules>
@@ -36,12 +37,13 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.12</version>
+            <version>${slf4j-api.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.7.12</version>
+            <version>${slf4j-api.version}</version>
             <scope>test</scope>
         </dependency>
 
