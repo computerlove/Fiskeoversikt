@@ -49,7 +49,6 @@
                 <version>${reststop.version}</version>
                 <configuration>
                     <applicationName>landingsopplysninger-webapp</applicationName>
-                   <!-- <warCoords>${project.groupId}:${project.artifactId}:war:${project.version}</warCoords>-->
                     <!-- Adds tracking of code base of <plugins>, enabling automatic recompile and hot-deploy. -->
                     <addDevelopmentPlugins>true</addDevelopmentPlugins>
                     <resolveSources>false</resolveSources>
@@ -60,11 +59,7 @@
                             <artifactId>api-representation</artifactId>
                             <version>${project.version}</version>
                         </plugin>
-                      <!--  <plugin>
-                            <groupId>no.lillehaug.landingsopplysninger</groupId>
-                            <artifactId>client</artifactId>
-                            <version>${project.version}</version>
-                        </plugin>-->
+
                         <plugin>
                             <groupId>no.lillehaug.landingsopplysninger</groupId>
                             <artifactId>landingsopplysninger-api</artifactId>
