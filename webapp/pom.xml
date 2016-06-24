@@ -120,6 +120,7 @@
                         </dependency>
                     </containerDependencies>
                     <maintainer>Marvin B. Lillehaug &lt;marvin.lillehaug@gmail.com&gt;</maintainer>
+                    <depends>java8-runtime</depends>
                 </configuration>
                 <executions>
                     <execution>
