@@ -2,7 +2,10 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-    entry: './src/main/webapp/main.js',
+    entry: {
+        app : './src/main/webapp/main.js',
+        vendor : ['react', 'react-dom']
+    },
     output: { path: __dirname + '/src/main/webapp/dist', filename: 'bundle.js' },
     devtool: 'source-map',
     module: {
@@ -16,5 +19,8 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
+    ]
 };
