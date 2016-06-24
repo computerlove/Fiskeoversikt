@@ -16,7 +16,7 @@
     </scm>
 
     <properties>
-        <reststop.version>2.4-SNAPSHOT</reststop.version>
+        <reststop.version>2.4</reststop.version>
         <kotlin.version>1.0.1</kotlin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <slf4j-api.version>1.7.12</slf4j-api.version>

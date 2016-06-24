@@ -8,8 +8,8 @@
   },
   "main": "src/main/web/index.js",
   "scripts": {
-    "watch-css": "nodemon -q -I -w src/main/webapp/less --ext less --exec 'npm run build-css'",
-    "watch-js": "webpack -w",
+    "watch-css": "nodemon -q -I -w src/main/web/style/app.less --ext less --exec 'npm run build-css'",
+    "watch-js": "webpack --progress --colors --watch",
     "watch": "npm run watch-css & npm run watch-js",
     "build-css": "lessc src/main/web/style/app.less target/classes/assets/bundle.css",
     "build-js": "webpack",
@@ -30,6 +30,8 @@
     "babel-preset-react": "^6.5.0",
     "webpack": "^1.13.1",
     "eslint": "^0.21.2",
-    "eslint-plugin-react": "^2.3.0"
+    "eslint-plugin-react": "^2.3.0",
+    "nodemon": "^1.9.2",
+    "less" : "^2.7.1"
   }
 }

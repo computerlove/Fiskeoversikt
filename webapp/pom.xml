@@ -44,6 +44,8 @@
                     <applicationName>landingsopplysninger-webapp</applicationName>
                     <!-- Adds tracking of code base of <plugins>, enabling automatic recompile and hot-deploy. -->
                     <addDevelopmentPlugins>true</addDevelopmentPlugins>
+                    <resolveSources>true</resolveSources>
+
                     <plugins>
                         <plugin>
                             <groupId>no.lillehaug.landingsopplysninger</groupId>
