@@ -32,6 +32,13 @@
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.7</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.kantega.reststop</groupId>
+            <artifactId>reststop-development-plugin</artifactId>
+            <version>${reststop.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -42,9 +49,10 @@
                 <version>${reststop.version}</version>
                 <configuration>
                     <applicationName>landingsopplysninger-webapp</applicationName>
+                   <!-- <warCoords>${project.groupId}:${project.artifactId}:war:${project.version}</warCoords>-->
                     <!-- Adds tracking of code base of <plugins>, enabling automatic recompile and hot-deploy. -->
                     <addDevelopmentPlugins>true</addDevelopmentPlugins>
-                    <resolveSources>true</resolveSources>
+                    <resolveSources>false</resolveSources>
 
                     <plugins>
                         <plugin>
@@ -52,11 +60,11 @@
                             <artifactId>api-representation</artifactId>
                             <version>${project.version}</version>
                         </plugin>
-                        <plugin>
+                      <!--  <plugin>
                             <groupId>no.lillehaug.landingsopplysninger</groupId>
                             <artifactId>client</artifactId>
                             <version>${project.version}</version>
-                        </plugin>
+                        </plugin>-->
                         <plugin>
                             <groupId>no.lillehaug.landingsopplysninger</groupId>
                             <artifactId>landingsopplysninger-api</artifactId>
@@ -175,6 +183,70 @@
                     <preparationGoals>
                         <preparationGoal>reststop:dist-debian</preparationGoal>
                     </preparationGoals>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>0.0.28</version>
+                <executions>
+                    <execution>
+                        <id>install node and npm</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <configuration>
+                            <nodeVersion>v6.2.2</nodeVersion>
+                            <npmVersion>3.9.5</npmVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm install</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm run build</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run build</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <!-- You may start this execution from the command line with 'mvn frontend:gulp' -->
+                        <id>default-cli</id>
+                        <phase>none</phase>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run watch</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>node</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>node_modules</directory>
+                        </fileset>
+                    </filesets>
                 </configuration>
             </plugin>
         </plugins>

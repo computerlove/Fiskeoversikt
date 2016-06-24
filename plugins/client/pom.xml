@@ -14,7 +14,7 @@
 
     <build>
         <plugins>
-            <plugin>
+            <!--<plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
                 <version>0.0.28</version>
@@ -51,7 +51,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <!-- You may start this execution from the command line with 'mvn frontend:gulp' -->
+                        &lt;!&ndash; You may start this execution from the command line with 'mvn frontend:gulp' &ndash;&gt;
                         <id>default-cli</id>
                         <phase>none</phase>
                         <goals>
@@ -62,7 +62,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>3.0.0</version>

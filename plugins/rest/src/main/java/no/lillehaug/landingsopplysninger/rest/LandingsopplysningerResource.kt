@@ -4,9 +4,12 @@ import no.lillehaug.landingsopplysninger.api.LandingsopplysningerRepository
 import no.lillehaug.landingsopplysninger.representation.Leveringslinje
 import javax.ws.rs.GET
 import javax.ws.rs.Path
+import javax.ws.rs.Produces
+import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 
 @Path("landingsopplysninger")
+@Produces(MediaType.APPLICATION_JSON)
 class LandingsopplysningerResource (val repository: LandingsopplysningerRepository){
 
     @GET

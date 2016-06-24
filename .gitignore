@@ -10,3 +10,5 @@ buildNumber.properties
 .idea
 *.iml
 node_modules
+node
+webapp/src/main/webapp/dist/
