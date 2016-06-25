@@ -1,13 +1,10 @@
 package no.lillehaug.landingsopplysninger.representation
 
-import no.lillehaug.landingsopplysninger.api.Leveringslinje
-import java.time.LocalDate
-
-data class Leveringslinje (val fartøy: String, val landingsdato: LocalDate, val mottak: String, val fiskeslag: String, val tilstand: String, val størrelse: String, val kvalitet: String, val nettovekt: Double) {
+data class Leveringslinje (val fartoy: String, val landingsdato: String, val mottak: String, val fiskeslag: String, val tilstand: String, val storrelse: String, val kvalitet: String, val nettovekt: Double) {
     companion object {
         @JvmStatic
         fun fromApi(l: no.lillehaug.landingsopplysninger.api.Leveringslinje) : Leveringslinje {
-            return no.lillehaug.landingsopplysninger.api.Leveringslinje(l.fartøy, l.landingsdato, l.mottak, l.fiskeslag, l.tilstand, l.størrelse, l.kvalitet, l.nettovekt)
+            return Leveringslinje(l.fartøy, l.landingsdato.toString(), l.mottak, l.fiskeslag, l.tilstand, l.størrelse, l.kvalitet, l.nettovekt)
         }
     }
 }
