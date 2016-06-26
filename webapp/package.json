@@ -21,6 +21,10 @@
   "dependencies": {
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
+    "react-router": "^2.5.1",
+    "qwest": "^1.5.12",
+    "omnipotent": "^1.2.1",
+    "omniscient": "^4.1.1",
     "immstruct": "^2.0.0",
     "immutable": "^3.8.1"
   },
