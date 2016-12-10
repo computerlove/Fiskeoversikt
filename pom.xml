@@ -16,8 +16,8 @@
     </scm>
 
     <properties>
-        <reststop.version>2.4</reststop.version>
-        <kotlin.version>1.0.1</kotlin.version>
+        <reststop.version>3.0rc4</reststop.version>
+        <kotlin.version>1.0.5-2</kotlin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <slf4j-api.version>1.7.12</slf4j-api.version>
     </properties>
@@ -81,15 +81,15 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>3.6.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
-                <artifactId>kotlin-maven-plugin</artifactId>
                 <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
 
                 <executions>
@@ -112,7 +112,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.6</version>
+                <version>3.0.1</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -134,4 +134,18 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <repositories>
+        <repository>
+            <id>reststops-staging</id>
+            <url>https://oss.sonatype.org/content/repositories/orgkantega-1041/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>reststops-staging</id>
+            <url>https://oss.sonatype.org/content/repositories/orgkantega-1041/</url>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
