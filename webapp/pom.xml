@@ -231,6 +231,72 @@
                     </filesets>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.18.1</version>
+                <executions>
+                    <execution>
+                        <id>start</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build-nofork</goal>
+                            <!--<goal>push</goal>-->
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <images>
+                        <image>
+                            <name>marvinlillehaug/landingsopplysninger:latest</name>
+                            <alias>landingsopplysninger</alias>
+                            <build>
+                                <maintainer>marvin@bredal-lillehaug.no</maintainer>
+                                <from>openjdk:latest</from>
+                                <assembly>
+                                    <descriptor>docker-assembly.xml</descriptor>
+                                </assembly>
+                                <ports>
+                                    <port>8080</port>
+                                </ports>
+                                <runCmds>
+                                    <runCmd>
+                                        chmod +x /maven/etc/init.d/landingsopplysninger-webapp
+                                    </runCmd>
+                                    <runCmd>
+                                        chmod +x /maven/opt/landingsopplysninger-webapp/jetty/bin/jetty.sh
+                                    </runCmd>
+                                    <runCmd>
+                                        ln -s /maven/etc/init.d/landingsopplysninger-webapp /etc/init.d/landingsopplysninger-webapp
+                                    </runCmd>
+                                    <runCmd>
+                                        ln -s /maven/opt/landingsopplysninger-webapp /opt/landingsopplysninger-webapp
+                                    </runCmd>
+                                    <runCmd>
+                                        adduser --home /maven/opt/landingsopplysninger-webapp landingsopplysninger-webapp
+                                    </runCmd>
+                                </runCmds>
+                                <cmd>
+                                    <shell>
+                                        /etc/init.d/landingsopplysninger-webapp start
+                                    </shell>
+                                </cmd>
+                            </build>
+                            <run>
+                                <ports>
+                                    <port>8080:8080</port>
+                                </ports>
+                                <wait>
+                                    <!-- ${docker.host.address} is set automatically by the plugin -->
+                                    <url>http://${docker.host.address}:8080/</url>
+                                    <time>60000</time>
+                                </wait>
+                            </run>
+                        </image>
+                    </images>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
