@@ -6,12 +6,13 @@
     "type" : "git",
     "url" : "https://github.com/computerlove/Fiskeoversikt"
   },
-  "main": "src/main/web/index.js",
+  "main": "src/main/js/main.js",
   "scripts": {
-    "watch-css": "nodemon -q -I -w src/main/webapp/style/app.less --ext less --exec 'npm run build-css'",
+    "watch-css": "nodemon -e css,scss -x \"npm run build-css\"",
     "watch-js": "webpack --progress --colors --watch",
     "watch": "npm run watch-css & npm run watch-js",
-    "build-css": "lessc src/main/webapp/style/app.less src/main/webapp/dist/bundle.css",
+    "build-external-css": "node ./build-external-css.js",
+    "build-css": "node-sass src/main/css/app.scss target/classes/assets/styles.css",
     "build-js": "webpack",
     "build": "npm run build-css & npm run build-js",
     "lint": "./node_modules/.bin/eslint ."
@@ -19,9 +20,9 @@
   "author": "Marvin Bredal Lillehaug",
   "license": "Apache-2.0",
   "dependencies": {
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
-    "react-router": "^2.5.1",
+    "react": "15.4.1",
+    "react-dom": "15.4.1",
+    "react-router": "3.0.0",
     "qwest": "^1.5.12",
     "omnipotent": "^1.2.1",
     "omniscient": "^4.1.1",
@@ -29,14 +30,23 @@
     "immutable": "^3.8.1"
   },
   "devDependencies": {
-    "babel-core": "^6.10.4",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.5.0",
-    "webpack": "^1.13.1",
+    "@types/react": "0.14.50",
+    "@types/react-dom": "0.14.19",
+    "@types/react-router": "2.0.39",
+    "babel": "6.5.2",
+    "babel-core": "6.18.2",
+    "babel-loader": "6.2.8",
+    "babel-polyfill": "6.16.0",
+    "babel-preset-es2015": "6.18.0",
+    "babel-preset-react": "6.16.0",
+    "babel-preset-stage-0": "6.16.0",
+    "source-map-loader": "0.1.5",
+    "ts-loader": "1.2.2",
+    "typescript": "2.0.10",
+    "webpack": "1.13.3",
     "eslint": "^0.21.2",
     "eslint-plugin-react": "^2.3.0",
     "nodemon": "^1.9.2",
-    "less" : "^2.7.1"
+    "node-sass": "3.13.0"
   }
 }
