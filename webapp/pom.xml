@@ -205,31 +205,17 @@
                                         </ports>
                                         <runCmds>
                                             <runCmd>
-                                                -Dlogback.configurationFile=../conf/logback.xml
+                                                ln -s /maven/opt/landingsopplysninger-webapp /opt/landingsopplysninger
                                             </runCmd>
-                                            <runCmd>
-                                                chmod +x /maven/etc/init.d/landingsopplysninger-webapp
-                                            </runCmd>
-                                            <runCmd>
-                                                chmod +x /maven/opt/landingsopplysninger-webapp/jetty/bin/jetty.sh
-                                            </runCmd>
-                                            <runCmd>
-                                                ln -s /maven/etc/init.d/landingsopplysninger-webapp /etc/init.d/landingsopplysninger-webapp
-                                            </runCmd>
-                                            <runCmd>
-                                                ln -s /maven/opt/landingsopplysninger-webapp /opt/landingsopplysninger-webapp
-                                            </runCmd>
-                                            <runCmd>
-                                                adduser --home /maven/opt/landingsopplysninger-webapp landingsopplysninger-webapp
-                                            </runCmd>
-                                            <runCmd>
-                                                chown -R landingsopplysninger-webapp /maven/opt/landingsopplysninger-webapp
-                                            </runCmd>
-
                                         </runCmds>
                                         <cmd>
                                             <shell>
-                                                /etc/init.d/landingsopplysninger-webapp start
+                                                java \
+                                                -Dlogback.configurationFile=/opt/landingsopplysninger/conf/logback.xml \
+                                                -jar /opt/landingsopplysninger/start.jar \
+                                                --config /opt/landingsopplysninger/conf/landingsopplysninger-webapp.conf \
+                                                --repository /opt/landingsopplysninger/repository \
+                                                --plugins /opt/landingsopplysninger/plugins.xml
                                             </shell>
                                         </cmd>
                                     </build>

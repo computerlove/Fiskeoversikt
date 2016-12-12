@@ -155,15 +155,6 @@
             </plugin>
 
         </plugins>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.kantega.reststop</groupId>
-                    <artifactId>reststop-maven-plugin</artifactId>
-                    <version>${reststop.version}</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
 
     <repositories>
