@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import MainNavigation from "./main-navigation";
 
-interface AppProps {children: Array<React.Component>}
+interface AppProps {children?: Array<React.ReactNode>}
 export default class App extends React.Component<AppProps, {}> {
     render(){
         return (

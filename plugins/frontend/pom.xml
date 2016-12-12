@@ -11,6 +11,13 @@
 
     <artifactId>frontend</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.kantega.reststop</groupId>
+            <artifactId>reststop-servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
 

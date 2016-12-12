@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory
 import java.sql.Connection
 import javax.sql.DataSource
 
-class Database(val datasource : DataSource) {
+class Database(val datasource : HikariDataSource) {
     val flyway : Flyway
 
     init {
@@ -32,6 +32,10 @@ class Database(val datasource : DataSource) {
         return JDBC.transactional(datasource, action)
     }
 
+    fun close() {
+        datasource.shutdown()
+    }
+
     companion object {
         val log = LoggerFactory.getLogger(Database::class.java)
 
@@ -43,7 +47,7 @@ class Database(val datasource : DataSource) {
             return Database(createTestDatasource())
         }
 
-        private fun createDataSource(driver: String, url: String, username: String, password: String) : DataSource {
+        private fun createDataSource(driver: String, url: String, username: String, password: String) : HikariDataSource {
             log.info("Creating DataSource for url: $url with username $username and driver: $driver")
             val ds = HikariDataSource()
             ds.setDriverClassName(driver)
@@ -54,7 +58,7 @@ class Database(val datasource : DataSource) {
             return ds
         }
 
-        private fun createTestDatasource() : DataSource {
+        private fun createTestDatasource() : HikariDataSource {
             return createDataSource("org.h2.Driver", "jdbc:h2:mem:test", "sa", "")
         }
     }

@@ -1,10 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import { Link} from 'react-router';
 
 var activeSelection = '';
 
 
-interface AppProps {children: Array<React.Component>}
+interface AppProps {children?: Array<React.ReactNode>}
 export default class MainNavigation extends React.Component<AppProps, {}> {
     handleClick(event) {
         var href = event.target.href;

@@ -79,6 +79,11 @@
                             <artifactId>rest</artifactId>
                             <version>${project.version}</version>
                         </plugin>
+                        <plugin>
+                            <groupId>no.lillehaug.landingsopplysninger</groupId>
+                            <artifactId>frontend</artifactId>
+                            <version>${project.version}</version>
+                        </plugin>
 
                         <plugin>
                             <groupId>org.kantega.reststop</groupId>
