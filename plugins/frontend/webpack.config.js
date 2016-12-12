@@ -4,7 +4,7 @@ var webpack = require('webpack');
 // TODO set NODE_ENV=production og inkluder UglifyJsPlugin
 module.exports = {
     entry: {
-        app : ['babel-polyfill', './src/main/js/main.ts'],
+        app : ['babel-polyfill', './src/main/js/main.tsx'],
         vendor : ['react', 'react-dom', 'react-router', 'qwest', 'omnipotent', 'omniscient', 'immstruct', 'immutable']
     },
     output: {

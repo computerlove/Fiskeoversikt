@@ -6,7 +6,7 @@
     "type" : "git",
     "url" : "https://github.com/computerlove/Fiskeoversikt"
   },
-  "main": "src/main/js/main.js",
+  "main": "src/main/js/main.tsx",
   "scripts": {
     "watch-css": "nodemon -e css,scss -x \"npm run build-css\"",
     "watch-js": "webpack --progress --colors --watch",

@@ -1,6 +1,5 @@
 import React from 'react';
-import Component from 'omniscient';
-import fetchData from './data-request'
+/*
 
 const Landingsdata = Component('landingsdata', ({ cursor }) => {
     let result = [];
@@ -33,5 +32,16 @@ const Landingsdata = Component('landingsdata', ({ cursor }) => {
         {result}
     </ul>
 });
+*/
 
-export default Landingsdata;
+interface LandingsdataProps {}
+export default class Landingsdata extends React.Component<LandingsdataProps, {}> {
+
+    render() {
+        return (
+            <ul className="column-container">
+                <li>Landingsdata her</li>
+            </ul>
+        );
+    }
+};
