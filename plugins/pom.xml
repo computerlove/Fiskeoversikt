@@ -39,4 +39,20 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.kantega.reststop</groupId>
+                <artifactId>reststop-maven-plugin</artifactId>
+                <version>${reststop.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>mark-source-dir</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

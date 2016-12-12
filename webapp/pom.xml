@@ -283,6 +283,10 @@
                                     <runCmd>
                                         adduser --home /maven/opt/landingsopplysninger-webapp landingsopplysninger-webapp
                                     </runCmd>
+                                    <runCmd>
+                                        chown -R landingsopplysninger-webapp /maven/opt/landingsopplysninger-webapp
+                                    </runCmd>
+
                                 </runCmds>
                                 <cmd>
                                     <shell>
