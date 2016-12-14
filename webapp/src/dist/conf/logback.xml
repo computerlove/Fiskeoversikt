@@ -6,7 +6,7 @@
         <resetJUL>true</resetJUL>
     </contextListener>
 
-    <property name="logdir" value="./data/logs" />
+    <property name="logdir" value="/opt/landingsopplysninger/data/logs" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
