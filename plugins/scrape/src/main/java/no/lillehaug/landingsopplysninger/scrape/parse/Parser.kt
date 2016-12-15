@@ -4,18 +4,18 @@ import no.lillehaug.landingsopplysninger.api.Leveringslinje
 import org.apache.commons.io.IOUtils
 import org.apache.http.client.entity.UrlEncodedFormEntity
 import org.apache.http.client.methods.HttpPost
+import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.impl.client.HttpClients
 import org.apache.http.message.BasicNameValuePair
 import org.jsoup.Jsoup
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
+val vesselPattern = "[^(]*\\((.*)\\)".toRegex().toPattern()
 
 class Parser (val url: String){
-    val httpclient = HttpClients.createDefault();
-    val vesselPattern = "[^(]*\\((.*)\\)".toRegex().toPattern()
 
-    fun fetchAndParseForRegistration(registration: String) : List<Leveringslinje> {
+    fun fetchAndParseForRegistration(registration: String, httpclient: CloseableHttpClient) : List<Leveringslinje> {
 
         val entity = UrlEncodedFormEntity(
                 listOf(
@@ -25,8 +25,9 @@ class Parser (val url: String){
 
         val httpPost = HttpPost(url)
         httpPost.entity = entity
+
         val response = httpclient.execute(httpPost)
-        var html = IOUtils.toString(response.entity.content, "ISO-8859-1")
+        val html = IOUtils.toString(response.entity.content, "ISO-8859-1")
         return parseFromHtml(html)
     }
 
