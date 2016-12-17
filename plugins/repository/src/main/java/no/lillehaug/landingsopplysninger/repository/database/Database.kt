@@ -1,5 +1,7 @@
 package no.lillehaug.landingsopplysninger.repository.database
 
+import com.codahale.metrics.MetricRegistry
+import com.codahale.metrics.health.HealthCheckRegistry
 import com.zaxxer.hikari.HikariDataSource
 import no.lillehaug.landingsopplysninger.repository.jdbc.JDBC
 import org.flywaydb.core.Flyway
@@ -39,15 +41,15 @@ class Database(val datasource : HikariDataSource) {
     companion object {
         val log = LoggerFactory.getLogger(Database::class.java)
 
-        fun createDatabase(driver: String, url: String, username: String, password: String) : Database {
-            return Database(createDataSource(driver, url, username, password))
+        fun createDatabase(driver: String, url: String, username: String, password: String, healthCheckRegistry: HealthCheckRegistry, metricRegistry: MetricRegistry) : Database {
+            return Database(createDataSource(driver, url, username, password, healthCheckRegistry, metricRegistry))
         }
 
         fun createTestDatabase () : Database {
             return Database(createTestDatasource())
         }
 
-        private fun createDataSource(driver: String, url: String, username: String, password: String) : HikariDataSource {
+        private fun createDataSource(driver: String, url: String, username: String, password: String, healthCheckRegistry: HealthCheckRegistry?, metricRegistry: MetricRegistry?) : HikariDataSource {
             log.info("Creating DataSource for url: $url with username $username and driver: $driver")
             val ds = HikariDataSource()
             ds.setDriverClassName(driver)
@@ -55,11 +57,18 @@ class Database(val datasource : HikariDataSource) {
             ds.jdbcUrl = url
             ds.username = username
             ds.password = password
+
+            if (healthCheckRegistry != null) {
+                ds.healthCheckRegistry = healthCheckRegistry
+            }
+            if(metricRegistry != null) {
+                ds.metricRegistry = metricRegistry
+            }
             return ds
         }
 
         private fun createTestDatasource() : HikariDataSource {
-            return createDataSource("org.h2.Driver", "jdbc:h2:mem:test", "sa", "")
+            return createDataSource("org.h2.Driver", "jdbc:h2:mem:test", "sa", "", null, null)
         }
     }
 }

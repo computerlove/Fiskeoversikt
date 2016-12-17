@@ -106,7 +106,6 @@
                             <artifactId>reststop-assets-plugin</artifactId>
                             <version>${reststop.version}</version>
                         </plugin>
-                        <!--
                         <plugin>
                             <groupId>org.kantega.reststop</groupId>
                             <artifactId>reststop-metrics-plugin</artifactId>
@@ -116,7 +115,7 @@
                             <groupId>org.kantega.reststop</groupId>
                             <artifactId>reststop-metrics-servlets-plugin</artifactId>
                             <version>${reststop.version}</version>
-                        </plugin>-->
+                        </plugin>
                     </plugins>
 
                 </configuration>

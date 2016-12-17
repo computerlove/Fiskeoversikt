@@ -1,5 +1,6 @@
 package no.lillehaug.landingsopplysninger.scrape;
 
+import com.codahale.metrics.health.HealthCheckRegistry;
 import no.lillehaug.landingsopplysninger.api.LandingsopplysningerRepository;
 import org.kantega.reststop.api.Config;
 import org.kantega.reststop.api.Plugin;
@@ -24,10 +25,6 @@ public class ScraperPlugin {
                          @Config(doc = "Time unit (java.util.concurrent.TimeUnit) for scrapting job period", property = "scrape.job.timeunit", defaultValue = "DAYS") String scrapeJobTimeUnit,
                          LandingsopplysningerRepository landingsopplysningerRepository) {
 
-        new DateTimeFormatterBuilder()
-                .parseCaseInsensitive()
-                .appendPattern("dd-MMM-yy")
-                .toFormatter();
         ScrapingJob scraperJob = new ScrapingJob(new Scraper(scrapeUrl), landingsopplysningerRepository, asList(scrapeRegistrations.split(",")));
         executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.scheduleAtFixedRate(scraperJob::scrapeForRegistrations, scrapeJobDelay, scrapeJobPeriod, TimeUnit.valueOf(scrapeJobTimeUnit));
