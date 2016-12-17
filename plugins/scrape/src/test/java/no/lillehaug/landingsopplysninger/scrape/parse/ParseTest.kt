@@ -78,4 +78,23 @@ class ParseTest {
                 Leveringslinje("N 0027SG", LocalDate.of(2016, 3, 17), "Steigen Sjømat As (N869)", "Torsk", "Sluh", "6,0+ Kg", "A", 153.0)
         ))
     }
+
+    @Test fun testDec() {
+        val url = "http://www.rafisklaget.no/portal/pls/portal/PORTAL.LANDINGSOPPLYSNING.show"
+        val response = IOUtils.toString(javaClass.getResourceAsStream("/english.html"))
+        val parser = Parser(url)
+        val parseResult = parser.parseFromHtml(response)
+
+        assertEquals(parseResult, listOf(
+                Leveringslinje("N 0027SG", LocalDate.of(2016, 12, 10), "Steigen Sjømat As (N869)", "Breiflabb", "Sluh", "4,0+ Kg", "A", 11.0),
+                Leveringslinje("N 0027SG", LocalDate.of(2016, 12, 10), "Steigen Sjømat As (N869)", "Kveite", "Sluh", "60+ Kg", "A", 99.5),
+                Leveringslinje("N 0027SG", LocalDate.of(2016, 12, 10), "Steigen Sjømat As (N869)", "Skate", "Vinger", "Unspec", "A", 2.5),
+                Leveringslinje("N 0027SG", LocalDate.of(2016, 12, 8), "Steigen Sjømat As (N869)", "Breiflabb", "Sluh", "4,0+ Kg", "A", 11.0),
+                Leveringslinje("N 0027SG", LocalDate.of(2016, 12, 8), "Steigen Sjømat As (N869)", "Breiflabb", "Sluh", "1,0-4,0 Kg", "A", 5.5),
+                Leveringslinje("N 0027SG", LocalDate.of(2016, 12, 8), "Steigen Sjømat As (N869)", "Kveite", "Sluh", "20-40 Kg", "A", 50.5),
+                Leveringslinje("N 0027SG", LocalDate.of(2016, 12, 3), "Steigen Sjømat As (N869)", "Breiflabb", "Sluh", "4,0+ Kg", "A", 22.0),
+                Leveringslinje("N 0027SG", LocalDate.of(2016, 12, 3), "Steigen Sjømat As (N869)", "Breiflabb", "Sluh", "1,0-4,0 Kg", "A", 3.5),
+                Leveringslinje("N 0027SG", LocalDate.of(2016, 11, 30), "Steigen Sjømat As (N869)", "Breiflabb", "Sluh", "4,0+ Kg", "A", 35.0)
+        ))
+    }
 }

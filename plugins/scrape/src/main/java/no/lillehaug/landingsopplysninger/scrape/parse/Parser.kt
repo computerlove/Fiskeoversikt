@@ -5,12 +5,12 @@ import org.apache.commons.io.IOUtils
 import org.apache.http.client.entity.UrlEncodedFormEntity
 import org.apache.http.client.methods.HttpPost
 import org.apache.http.impl.client.CloseableHttpClient
-import org.apache.http.impl.client.HttpClients
 import org.apache.http.message.BasicNameValuePair
 import org.jsoup.Jsoup
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
 import java.util.*
+
 val vesselPattern = "[^(]*\\((.*)\\)".toRegex().toPattern()
 
 class Parser (val url: String){
@@ -62,11 +62,10 @@ class Parser (val url: String){
             }
         }
 
-        val datePattern = DateTimeFormatter.ofPattern("dd-MMM-yy", Locale.forLanguageTag("NO"))
         return entries.map {
             Leveringslinje(
                     it.fartøy,
-                    LocalDate.parse(it.landingsdato.toLowerCase(), datePattern),
+                    tryParseDate(it),
                     it.mottak,
                     it.fiskeslag,
                     it.tilstand,
@@ -75,6 +74,28 @@ class Parser (val url: String){
                     it.nettovekt.toDouble()
             )
         }
+    }
+
+    val dateParsers = listOf(
+            DateTimeFormatterBuilder()
+                    .parseCaseInsensitive()
+                    .appendPattern("dd-MMM-yy")
+                    .toFormatter(),
+            DateTimeFormatterBuilder()
+                    .parseCaseInsensitive()
+                    .appendPattern("dd-MMM-yy")
+                    .toFormatter(Locale.forLanguageTag("NO")))
+    private fun tryParseDate(it: Entry) : LocalDate {
+
+        val landingsDato = it.landingsdato
+        for (parser in dateParsers) {
+            try {
+                return LocalDate.parse(landingsDato, parser)
+            } catch(e: Exception) {
+                throw e
+            }
+        }
+        throw IllegalStateException("No parsers for ${landingsDato}")
     }
 
     private fun defaultOrValue(defaultValue: String, value: String? ) : String {
