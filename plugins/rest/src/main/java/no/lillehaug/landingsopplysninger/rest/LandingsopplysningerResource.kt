@@ -3,7 +3,6 @@ package no.lillehaug.landingsopplysninger.rest
 import no.lillehaug.landingsopplysninger.api.LandingsopplysningerRepository
 import no.lillehaug.landingsopplysninger.representation.Landingsdata
 import no.lillehaug.landingsopplysninger.representation.Leveringslinje
-import java.time.LocalDate
 import javax.ws.rs.GET
 import javax.ws.rs.Path
 import javax.ws.rs.Produces
@@ -11,7 +10,7 @@ import javax.ws.rs.QueryParam
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 
-@Path("landingsdata")
+@Path("api/landingsdata")
 @Produces(MediaType.APPLICATION_JSON)
 class LandingsopplysningerResource (val repository: LandingsopplysningerRepository){
 
