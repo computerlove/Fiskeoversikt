@@ -25,6 +25,7 @@ public class RepositoryPlugin {
             @Config(doc = "JDBC database password", property = "database.password", required = false) String databasePassword,
             HealthCheckRegistry healthCheckRegistry,
             MetricRegistry metricRegistry) {
+
         database = Database.Companion.createDatabase(databaseDriver, databaseUrl, databaseUser, databasePassword, healthCheckRegistry, metricRegistry);
         database.migrate();
         repository = new JdbcRepository(database);

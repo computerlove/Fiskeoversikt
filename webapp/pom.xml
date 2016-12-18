@@ -33,6 +33,7 @@
             <version>${reststop.version}</version>
             <scope>provided</scope>
         </dependency>
+
 <!--
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -116,6 +117,18 @@
                             <artifactId>reststop-metrics-servlets-plugin</artifactId>
                             <version>${reststop.version}</version>
                         </plugin>
+                        <plugin>
+                            <groupId>com.codahale.metrics</groupId>
+                            <artifactId>metrics-core</artifactId>
+                            <version>${metrics.version}</version>
+                        </plugin>
+
+                        <plugin>
+                            <groupId>com.codahale.metrics</groupId>
+                            <artifactId>metrics-healthchecks</artifactId>
+                            <version>${metrics.version}</version>
+                        </plugin>
+
                     </plugins>
 
                 </configuration>
