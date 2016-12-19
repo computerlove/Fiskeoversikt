@@ -5,13 +5,20 @@ import App from "./app/app";
 import Landingsdata from "./app/landingsdata";
 import Aggregert from "./app/aggregert";
 
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { connect } from 'react-redux'
+import { default as reducers } from './app/reducers';
+
+const store = createStore(reducers, applyMiddleware(thunk));
+
+const mapStateToProps = state => {
+    return state;
+};
 
 ReactDOM.render((
-    <Router history={hashHistory}>
-        <Route path="/" component={App}>
-            <IndexRoute component={Landingsdata}/>
-            <Route path="/landingsdata" component={Landingsdata}/>
-            <Route path="/aggregert" component={Aggregert} />
-        </Route>
-    </Router>
+    <Provider store={ store } key="provider">
+        <App />
+    </Provider>
 ), document.getElementById('app'));
