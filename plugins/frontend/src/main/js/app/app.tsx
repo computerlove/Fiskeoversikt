@@ -1,17 +1,17 @@
 import * as React from 'react';
-import MainNavigation from "./main-navigation";
+import Landingsdata from "./landingsdata";
 
-interface AppProps {children?: Array<React.ReactNode>}
+interface AppProps {}
 export default class App extends React.Component<AppProps, {}> {
     render(){
         return (
             <div>
                 <header className="mainHeader">
-                    <MainNavigation />
+                    <h1>Landingsdata</h1>
                 </header>
                 <section className="container main-container">
                     <div className="main-content">
-                        {this.props.children}
+                        <Landingsdata />
                     </div>
                 </section>
             </div>

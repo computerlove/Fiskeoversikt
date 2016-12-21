@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { connect } from 'react-redux'
+import {Tilstand} from "./domain/index";
 /*
 
 const Landingsdata = Component('landingsdata', ({ cursor }) => {
@@ -35,7 +37,7 @@ const Landingsdata = Component('landingsdata', ({ cursor }) => {
 */
 
 interface LandingsdataProps {}
-export default class Landingsdata extends React.Component<LandingsdataProps, {}> {
+class Landingsdata extends React.Component<LandingsdataProps, {}> {
 
     render() {
         return (
@@ -44,4 +46,13 @@ export default class Landingsdata extends React.Component<LandingsdataProps, {}>
             </ul>
         );
     }
+}
+
+const mapStateToProps = (state: Tilstand) => {
+    const {laster, landingsdata} = state;
+    return {
+        laster,
+        landingsdata
+    }
 };
+export default connect(mapStateToProps)(Landingsdata);
