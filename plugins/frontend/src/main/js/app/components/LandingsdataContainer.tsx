@@ -17,16 +17,20 @@ class LandingsdataContainer extends React.Component<LandingsdataProps, {}> {
                 <div>
                     <label>
                         Fra:
-                        <input type="date"/>
+                        <input type="date" defaultValue={this.datestring(this.props.landingsdata.fraDato)}/>
                     </label>
                     <label>
                         Til:
-                        <input type="date"/>
+                        <input type="date" defaultValue={this.datestring(this.props.landingsdata.tilDato)}/>
                     </label>
                 </div>
                 <LandingsOpplysningerList data={this.props.landingsdata.leveringslinjer} />
             </section>
         );
+    }
+
+    datestring(date: Date) : string {
+        return date.toISOString().split('T')[0];
     }
 }
 

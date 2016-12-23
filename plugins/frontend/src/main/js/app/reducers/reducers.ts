@@ -1,6 +1,6 @@
 import {ActionType} from "../actions/actions";
 import {Tilstand, Landingsdata} from "../domain/domain";
-const InitialState = new Tilstand(new Landingsdata(null, null, [], []));
+const InitialState = new Tilstand(new Landingsdata(new Date(), new Date(), [], []));
 
 export default (state = InitialState, action) => {
     console.info(ActionType[action.type] || 'INITIALIZING');

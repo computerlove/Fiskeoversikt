@@ -1,0 +1,11 @@
+.leveringslinjer {
+  list-style-type: none;
+  padding: 0;
+
+  li {
+    span, time {
+      width: 12.5%;
+      display: inline-flex;
+    }
+  }
+}
