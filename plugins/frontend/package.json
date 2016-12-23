@@ -14,7 +14,8 @@
     "build-external-css": "node ./build-external-css.js",
     "build-css": "node-sass src/main/css/app.scss target/classes/assets/styles.css",
     "build-js": "webpack",
-    "build": "npm run build-css & npm run build-js",
+    "build-js-production": "webpack -p",
+    "build-production": "npm run build-css & npm run build-js-production",
     "lint": "./node_modules/.bin/eslint ."
   },
   "author": "Marvin Bredal Lillehaug",

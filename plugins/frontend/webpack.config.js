@@ -1,7 +1,8 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
 
-// TODO set NODE_ENV=production og inkluder UglifyJsPlugin
+const DEBUG = process.env.NODE_ENV !== 'production';
+
 module.exports = {
     entry: {
         app : ['babel-polyfill', './src/main/js/main.tsx'],
@@ -9,9 +10,10 @@ module.exports = {
     },
     output: {
         path: __dirname + '/target/classes/assets',
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        devtoolModuleFilenameTemplate: 'webpack:///[absolute-resource-path]'
     },
-    devtool: 'source-map',
+    devtool: DEBUG ? 'cheap-module-eval-source-map' : 'source-map',
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: ["", ".ts", ".tsx", ".js", ".jsx"]
@@ -34,7 +36,11 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")/*,
-        new webpack.optimize.UglifyJsPlugin()*/
+        new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+            }
+        })
     ]
 };
