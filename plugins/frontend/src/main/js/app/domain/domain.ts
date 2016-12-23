@@ -1,8 +1,10 @@
+import {LocalDate} from 'js-joda';
+
 export class Leveringslinje {
     constructor(
         public id: string,
         public fartoy: string,
-        public landingsdato: Date,
+        public landingsdato: LocalDate,
         public mottak: string,
         public fiskeslag: string,
         public tilstand: string,
@@ -14,8 +16,8 @@ export class Leveringslinje {
 
 export class Landingsdata {
     constructor(
-        public fraDato: Date,
-        public tilDato: Date,
+        public fraDato: LocalDate,
+        public tilDato: LocalDate,
         public fartoy: Array<string>,
         public leveringslinjer: Array<Leveringslinje>
     ){}
@@ -35,3 +37,5 @@ export class Tilstand {
         return new Tilstand(data, this.laster);
     }
 }
+
+export type Timespan = {from: LocalDate, to: LocalDate};

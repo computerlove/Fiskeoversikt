@@ -13,7 +13,7 @@ export default class LandingsOpplysningerList extends React.Component<LandingsOp
 
     static leveringslinjeContainer(ll: Leveringslinje) {
         return (<li key={ll.id} className="leveringslinje">
-            <time dateTime={ll.landingsdato.toISOString()}>{ll.landingsdato.toDateString()}</time>
+            <time dateTime={ll.landingsdato.toString()}>{ll.landingsdato.toString()}</time>
             <span className="fartøy">{ll.fartoy}</span>
             <span className="mottak">{ll.mottak}</span>
             <span className="fiskeslag">{ll.fiskeslag}</span>

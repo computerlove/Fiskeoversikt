@@ -27,10 +27,10 @@
     "react-redux": "5.0.1",
     "redux": "3.6.0",
     "redux-thunk": "2.1.0",
-    "web-request": "1.0.7"
+    "web-request": "1.0.7",
+    "js-joda" : "1.1.17"
   },
   "devDependencies": {
-    "@types/qwest": "1.7.28",
     "@types/react": "0.14.55",
     "@types/react-dom": "0.14.19",
     "@types/react-redux": "4.4.35",

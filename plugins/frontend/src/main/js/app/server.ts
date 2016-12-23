@@ -1,5 +1,6 @@
-import {Landingsdata, Leveringslinje} from "./domain/domain";
+import {Landingsdata, Leveringslinje, Timespan} from "./domain/domain";
 import * as WebRequest from 'web-request';
+import {LocalDate} from 'js-joda';
 
 type LandingsdataResponse = {
     fraDato: string,
@@ -17,19 +18,21 @@ type LandingsdataResponse = {
         nettovekt: number
     }>
 }
-export function getData() : Promise<Landingsdata> {
+
+export function getData(timespan?: Timespan) : Promise<Landingsdata> {
+    const params = timespan ? '?fraDato=' + timespan.from.toString() + '&tilDato=' + timespan.to.toString() : '';
     return new Promise<Landingsdata>((resolve, reject) => {
-        WebRequest.json<LandingsdataResponse>(window.location.href + 'api/landingsdata')
+        WebRequest.json<LandingsdataResponse>(window.location.href + 'api/landingsdata' + params)
             .then(response =>
                 resolve(new Landingsdata(
-                    new Date(response.fraDato),
-                    new Date(response.tilDato),
+                    LocalDate.parse(response.fraDato),
+                    LocalDate.parse(response.tilDato),
                     response.fartoy,
                     response.leveringslinjer
                         .map(ll => new Leveringslinje(
                             ll.id,
                             ll.fartoy,
-                            new Date(ll.landingsdato),
+                            LocalDate.parse(ll.landingsdato),
                             ll.mottak,
                             ll.fiskeslag,
                             ll.tilstand,

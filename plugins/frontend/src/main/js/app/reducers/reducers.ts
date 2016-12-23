@@ -1,6 +1,8 @@
 import {ActionType} from "../actions/actions";
 import {Tilstand, Landingsdata} from "../domain/domain";
-const InitialState = new Tilstand(new Landingsdata(new Date(), new Date(), [], []));
+import {LocalDate} from 'js-joda';
+
+const InitialState = new Tilstand(new Landingsdata(LocalDate.now(),LocalDate.now(), [], []));
 
 export default (state = InitialState, action) => {
     console.info(ActionType[action.type] || 'INITIALIZING');
