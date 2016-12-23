@@ -2,22 +2,26 @@ package no.lillehaug.landingsopplysninger.repository
 
 import no.lillehaug.landingsopplysninger.api.LandingsopplysningerRepository
 import no.lillehaug.landingsopplysninger.api.Leveringslinje
+import no.lillehaug.landingsopplysninger.api.LeveringslinjeWithId
 import no.lillehaug.landingsopplysninger.repository.database.Database
 import org.slf4j.LoggerFactory
 import java.sql.Date
 import java.time.LocalDate
+import java.util.*
 
 class JdbcRepository(val database: Database) : LandingsopplysningerRepository {
     val log = LoggerFactory.getLogger(JdbcRepository::class.java)
 
-    override fun alleLeveranselinjer(): List<Leveringslinje> {
+    override fun alleLeveranselinjer(): List<LeveringslinjeWithId> {
         return database.readOnly {
             val ps = it.prepareStatement("select * from leveringslinje order by landingsdato,fiskeslag,kvalitet")
+            // TODO Stream of RS
             val rs = ps.executeQuery()
-            val results = mutableListOf<Leveringslinje>()
+            val results = mutableListOf<LeveringslinjeWithId>()
             while(rs.next()) {
                 results.add(
-                        Leveringslinje(
+                        LeveringslinjeWithId(
+                                rs.getObject("id", UUID::class.java),
                                 rs.getString("fartøy"),
                                 rs.getDate("landingsdato").toLocalDate(),
                                 rs.getString("mottak"),

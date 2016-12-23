@@ -6,6 +6,7 @@ type LandingsdataResponse = {
     tilDato: string,
     fartoy: Array<string>,
     leveringslinjer: Array<{
+        id: string,
         fartoy: string,
         landingsdato: string,
         mottak: string,
@@ -26,6 +27,7 @@ export function getData() : Promise<Landingsdata> {
                     response.fartoy,
                     response.leveringslinjer
                         .map(ll => new Leveringslinje(
+                            ll.id,
                             ll.fartoy,
                             new Date(ll.landingsdato),
                             ll.mottak,

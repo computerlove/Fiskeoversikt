@@ -1,5 +1,6 @@
 export class Leveringslinje {
     constructor(
+        public id: string,
         public fartoy: string,
         public landingsdato: Date,
         public mottak: string,

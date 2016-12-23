@@ -82,6 +82,7 @@ class JdbcRepositoryTest {
         )
         repository.lagreLeveranselinjer(testData)
         val retrievedData = repository.alleLeveranselinjer()
+                .map { Leveringslinje(it.fartøy, it.landingsdato, it.mottak, it.fiskeslag, it.tilstand, it.størrelse, it.kvalitet, it.nettovekt) }
         assertEquals(testData, retrievedData)
         val maxLandingsdato = testData.map { it.landingsdato }.max()
         assertEquals(maxLandingsdato, repository.forrigeLandingFor("N 0027SG"))

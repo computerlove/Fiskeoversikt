@@ -5,7 +5,7 @@ import java.time.LocalDate
 data class Landingsdata (val fraDato: String, val tilDato: String, val fartoy: List<String>, val leveringslinjer: List<Leveringslinje>){
     companion object {
         @JvmStatic
-        fun from(linjer: List<no.lillehaug.landingsopplysninger.api.Leveringslinje>) : Landingsdata {
+        fun from(linjer: List<no.lillehaug.landingsopplysninger.api.LeveringslinjeWithId>) : Landingsdata {
             val landingsdatoer = linjer.map { it.landingsdato }
             val fra = landingsdatoer.min() ?: LocalDate.of(2016, 3, 1)
             val til = landingsdatoer.max() ?: LocalDate.now()
