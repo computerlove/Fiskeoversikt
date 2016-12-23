@@ -28,7 +28,8 @@ module.exports = {
                 query: {
                     presets: ['es2015', 'react']
                 }
-            }
+            },
+            {test: /\.json$/, loader: 'json-loader'}
         ],
         preLoaders: [
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
@@ -42,5 +43,11 @@ module.exports = {
                 'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
             }
         })
-    ]
+    ],
+    node: {
+        console: true,
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty'
+    }
 };

@@ -2,9 +2,9 @@
   "name": "fiskeoversikt-client",
   "version": "1.0.0",
   "description": "Client for showing fiskeoversikt",
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/computerlove/Fiskeoversikt"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/computerlove/Fiskeoversikt"
   },
   "main": "src/main/js/main.tsx",
   "scripts": {
@@ -21,12 +21,13 @@
   "author": "Marvin Bredal Lillehaug",
   "license": "Apache-2.0",
   "dependencies": {
+    "json-loader": "^0.5.4",
     "react": "15.4.1",
     "react-dom": "15.4.1",
-    "redux": "3.6.0",
     "react-redux": "5.0.1",
+    "redux": "3.6.0",
     "redux-thunk": "2.1.0",
-    "qwest": "4.4.5"
+    "web-request": "1.0.7"
   },
   "devDependencies": {
     "@types/qwest": "1.7.28",

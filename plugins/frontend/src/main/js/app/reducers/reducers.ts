@@ -1,5 +1,5 @@
-import {ActionType} from "../actions/index";
-import {Tilstand, Landingsdata} from "../domain/index";
+import {ActionType} from "../actions/actions";
+import {Tilstand, Landingsdata} from "../domain/domain";
 const InitialState = new Tilstand(new Landingsdata(null, null, [], []));
 
 export default (state = InitialState, action) => {
@@ -8,6 +8,10 @@ export default (state = InitialState, action) => {
     switch (actionType) {
         case ActionType.FETCH_DATA:
             return state.withLaster(true);
+        case ActionType.RECIEVE_DATA:
+            return state
+                .withLaster(false)
+                .withData(action.data);
         default:
             return state;
     }

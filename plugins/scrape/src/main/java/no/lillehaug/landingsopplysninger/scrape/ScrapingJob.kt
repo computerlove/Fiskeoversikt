@@ -55,4 +55,9 @@ class ScrapingJob(val scraper: Scraper, val repository: LandingsopplysningerRepo
         repository.lagreLeveranselinjer(nyeLandinger)
         log.info("Done running scrapeForRegistrations for {}", registration)
     }
+
+    fun shutdown (){
+        healthCheckRegistry.unregister("ScrapingJobHealthCheck")
+        metricRegistry.remove("ScrapeTimerMetrics")
+    }
 }

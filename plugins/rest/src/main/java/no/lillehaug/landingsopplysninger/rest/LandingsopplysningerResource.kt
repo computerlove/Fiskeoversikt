@@ -28,10 +28,9 @@ class LandingsopplysningerResource (val repository: LandingsopplysningerReposito
     fun landingsdata(@QueryParam("fraDato") fraDato: String?,
                      @QueryParam("tilDato") tilDato: String?,
                      @QueryParam("fartoy") fartoy: List<String> ) : Response {
-        val landingsdata = Landingsdata.from(repository
-                .alleLeveranselinjer())
         return Response.status(Response.Status.OK)
-                .entity(landingsdata)
+                .entity(Landingsdata.from(repository
+                        .alleLeveranselinjer()))
                 .build()
     }
 }

@@ -17,6 +17,7 @@ import static java.util.Arrays.asList;
 public class ScraperPlugin {
 
     private final ScheduledExecutorService executorService;
+    private final ScrapingJob scraperJob;
 
     public ScraperPlugin(@Config(doc = "Url to POST registrations to", property = "scrape.url") String scrapeUrl,
                          @Config(doc = "Vessel registrations, comma separated", property = "scrape.registrations") String scrapeRegistrations,
@@ -27,13 +28,14 @@ public class ScraperPlugin {
                          HealthCheckRegistry healthCheckRegistry,
                          MetricRegistry metricRegistry) {
 
-        ScrapingJob scraperJob = new ScrapingJob(new Scraper(scrapeUrl), landingsopplysningerRepository, asList(scrapeRegistrations.split(",")), healthCheckRegistry, metricRegistry);
+        scraperJob = new ScrapingJob(new Scraper(scrapeUrl), landingsopplysningerRepository, asList(scrapeRegistrations.split(",")), healthCheckRegistry, metricRegistry);
         executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.scheduleAtFixedRate(scraperJob::scrapeForRegistrations, scrapeJobDelay, scrapeJobPeriod, TimeUnit.valueOf(scrapeJobTimeUnit));
     }
 
     @PreDestroy
     public void shutdown() {
+        scraperJob.shutdown();
         executorService.shutdown();
     }
 }

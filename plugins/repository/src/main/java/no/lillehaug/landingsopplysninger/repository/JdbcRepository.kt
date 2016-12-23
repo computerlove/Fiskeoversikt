@@ -12,7 +12,7 @@ class JdbcRepository(val database: Database) : LandingsopplysningerRepository {
 
     override fun alleLeveranselinjer(): List<Leveringslinje> {
         return database.readOnly {
-            val ps = it.prepareStatement("select * from leveringslinje")
+            val ps = it.prepareStatement("select * from leveringslinje order by landingsdato,fiskeslag,kvalitet")
             val rs = ps.executeQuery()
             val results = mutableListOf<Leveringslinje>()
             while(rs.next()) {

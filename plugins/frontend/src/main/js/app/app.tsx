@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Landingsdata from "./landingsdata";
+import LandingsdataContainer from "./components/LandingsdataContainer";
 
 interface AppProps {}
 export default class App extends React.Component<AppProps, {}> {
@@ -11,7 +11,7 @@ export default class App extends React.Component<AppProps, {}> {
                 </header>
                 <section className="container main-container">
                     <div className="main-content">
-                        <Landingsdata />
+                        <LandingsdataContainer />
                     </div>
                 </section>
             </div>
