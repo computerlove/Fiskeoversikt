@@ -1,0 +1,11 @@
+version: '2'
+services:
+  landingsopplysninger:
+    image: marvinlillehaug/landingsopplysninger
+    container_name: landingsopplysninger
+    environment:
+      JAVA_OPTS: "-Djava.awt.headless=true"
+    ports:
+      - "9080:8080"
+    volumes:
+      - "/data/landingsopplysninger/data:/opt/landingsopplysninger/data"

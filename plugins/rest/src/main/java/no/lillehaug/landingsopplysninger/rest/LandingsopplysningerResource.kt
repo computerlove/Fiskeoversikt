@@ -27,12 +27,20 @@ class LandingsopplysningerResource (val repository: LandingsopplysningerReposito
 
     @Path("/")
     @GET
-    fun landingsdata(@QueryParam("fraDato") fraDato: LocalDate?,
-                     @QueryParam("tilDato") tilDato: LocalDate?) : Response {
+    fun landingsdata(@QueryParam("fraDato") fraDato: String?,
+                     @QueryParam("tilDato") tilDato: String?) : Response {
         return Response.status(Response.Status.OK)
                 .entity(Landingsdata.from(repository.alleLeveranselinjer(
-                        LandingsdataQuery(fraDato, tilDato)
+                        LandingsdataQuery(localDate(fraDato), localDate(tilDato))
                 )))
                 .build()
+    }
+
+    private fun localDate(date: String? ) : LocalDate? {
+        if(date == null) {
+            return null
+        } else {
+            return LocalDate.parse(date)
+        }
     }
 }
