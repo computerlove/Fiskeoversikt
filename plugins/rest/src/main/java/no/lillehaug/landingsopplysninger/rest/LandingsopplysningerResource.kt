@@ -4,6 +4,7 @@ import no.lillehaug.landingsopplysninger.api.LandingsdataQuery
 import no.lillehaug.landingsopplysninger.api.LandingsopplysningerRepository
 import no.lillehaug.landingsopplysninger.representation.Landingsdata
 import no.lillehaug.landingsopplysninger.representation.Leveringslinje
+import java.time.LocalDate
 import javax.ws.rs.GET
 import javax.ws.rs.Path
 import javax.ws.rs.Produces
@@ -26,11 +27,12 @@ class LandingsopplysningerResource (val repository: LandingsopplysningerReposito
 
     @Path("/")
     @GET
-    fun landingsdata(@QueryParam("fraDato") fraDato: String?,
-                     @QueryParam("tilDato") tilDato: String?,
-                     @QueryParam("fartoy") fartoy: List<String> ) : Response {
+    fun landingsdata(@QueryParam("fraDato") fraDato: LocalDate?,
+                     @QueryParam("tilDato") tilDato: LocalDate?) : Response {
         return Response.status(Response.Status.OK)
-                .entity(Landingsdata.from(repository.alleLeveranselinjer(LandingsdataQuery(fraDato, tilDato, fartoy))))
+                .entity(Landingsdata.from(repository.alleLeveranselinjer(
+                        LandingsdataQuery(fraDato, tilDato)
+                )))
                 .build()
     }
 }

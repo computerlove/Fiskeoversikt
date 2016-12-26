@@ -15,13 +15,45 @@ class JdbcRepository(val database: Database) : LandingsopplysningerRepository {
     val log = LoggerFactory.getLogger(JdbcRepository::class.java)
 
     override fun alleLeveranselinjer(): List<LeveringslinjeWithId> {
-        return this.alleLeveranselinjer(no.lillehaug.landingsopplysninger.api.LandingsdataQuery(null, null, kotlin.collections.emptyList()))
+        return this.alleLeveranselinjer(no.lillehaug.landingsopplysninger.api.LandingsdataQuery(null, null))
+    }
+
+    private fun getParams(landingsdataQuery: LandingsdataQuery) : List<Any> {
+        val params = mutableListOf<Any>()
+        if(landingsdataQuery.fraDato != null){
+            params.add(Date.valueOf(landingsdataQuery.fraDato))
+        }
+        if(landingsdataQuery.tilDato != null){
+            params.add(Date.valueOf(landingsdataQuery.tilDato))
+        }
+
+        return params
+    }
+
+    private fun getWhere(landingsdataQuery: LandingsdataQuery) : String {
+        if(landingsdataQuery.tilDato == null && landingsdataQuery.fraDato == null) {
+            return ""
+        }
+
+        val parts = mutableListOf<String>()
+        if(landingsdataQuery.fraDato != null) {
+            parts.add(" landingsdato >= ?")
+        }
+        if(landingsdataQuery.tilDato != null) {
+            parts.add(" landingsdato <= ?")
+        }
+        return parts.joinToString(" AND ", "WHERE ")
     }
 
     override fun alleLeveranselinjer(landingsdataQuery: LandingsdataQuery): List<LeveringslinjeWithId> {
+        val where = getWhere(landingsdataQuery)
+        val params = getParams(landingsdataQuery)
         return database.readOnly {
-            val ps = it.prepareStatement("select * from leveringslinje order by landingsdato,fiskeslag,kvalitet")
-            // TODO Stream of RS
+            val ps = it.prepareStatement("select * from leveringslinje ${where} order by landingsdato,fiskeslag,kvalitet")
+            var i = 1
+            for (param in params) {
+                ps.setObject(i++, param)
+            }
             val rs = ps.executeQuery()
             trywr(rs) {
                 val results = mutableListOf<LeveringslinjeWithId>()
