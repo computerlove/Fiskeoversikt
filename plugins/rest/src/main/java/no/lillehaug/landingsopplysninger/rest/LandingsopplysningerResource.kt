@@ -1,5 +1,6 @@
 package no.lillehaug.landingsopplysninger.rest
 
+import no.lillehaug.landingsopplysninger.api.LandingsdataQuery
 import no.lillehaug.landingsopplysninger.api.LandingsopplysningerRepository
 import no.lillehaug.landingsopplysninger.representation.Landingsdata
 import no.lillehaug.landingsopplysninger.representation.Leveringslinje
@@ -29,8 +30,7 @@ class LandingsopplysningerResource (val repository: LandingsopplysningerReposito
                      @QueryParam("tilDato") tilDato: String?,
                      @QueryParam("fartoy") fartoy: List<String> ) : Response {
         return Response.status(Response.Status.OK)
-                .entity(Landingsdata.from(repository
-                        .alleLeveranselinjer()))
+                .entity(Landingsdata.from(repository.alleLeveranselinjer(LandingsdataQuery(fraDato, tilDato, fartoy))))
                 .build()
     }
 }

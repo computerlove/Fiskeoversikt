@@ -28,6 +28,7 @@
     <modules>
         <module>plugins</module>
         <module>webapp</module>
+        <module>library</module>
     </modules>
 
     <dependencies>
@@ -69,6 +70,11 @@
             <dependency>
                 <groupId>no.lillehaug.landingsopplysninger</groupId>
                 <artifactId>landingsopplysninger-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>no.lillehaug.landingsopplysninger</groupId>
+                <artifactId>library</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

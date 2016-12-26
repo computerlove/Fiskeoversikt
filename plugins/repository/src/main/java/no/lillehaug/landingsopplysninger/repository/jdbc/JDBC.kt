@@ -1,5 +1,6 @@
 package no.lillehaug.landingsopplysninger.repository.jdbc
 
+import no.lillehaug.landingsopplysninger.library.TryWR.Companion.trywr
 import org.slf4j.LoggerFactory
 import java.sql.Connection
 import javax.sql.DataSource
@@ -37,15 +38,6 @@ class JDBC {
             }
         }
 
-        inline fun <T : AutoCloseable, R> trywr(closeable: T, block: (T) -> R): R {
-            try {
-                return block(closeable);
-            } catch (e: Exception) {
-                log.error("Error", e)
-                throw e
-            } finally {
-                closeable.close()
-            }
-        }
+
     }
 }
