@@ -5,7 +5,7 @@ const DEBUG = process.env.NODE_ENV !== 'production';
 
 module.exports = {
     entry: {
-        app : ['babel-polyfill', './src/main/js/main.tsx'],
+        app : ['./src/main/js/main.tsx'],
         vendor : [
             'js-joda',
             'react',
@@ -30,15 +30,9 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: ["babel-loader", "ts-loader"]
-            },{
-                test: /.jsx?$/,
-                loader: 'babel-loader',
-                exclude: /node_modules/,
-                options: {
-                    presets: ['es2015', 'react']
-                }
-            }, {
+                use: ["awesome-typescript-loader"]
+            },
+            {
                 test: /\.js$/,
                 enforce: "pre",
                 use: "source-map-loader"
