@@ -15,6 +15,7 @@
     "build-css": "node-sass src/main/css/app.scss target/classes/assets/styles.css",
     "build-js": "webpack",
     "build-js-production": "webpack -p",
+    "build": "npm run build-css & npm run build-js",
     "build-production": "npm run build-css & npm run build-js-production"
   },
   "author": "Marvin Bredal Lillehaug",
