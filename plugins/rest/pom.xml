@@ -29,19 +29,24 @@
             <version>${reststop.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
     </dependencies>
 
-    <build>
+   <!-- <build>
         <plugins>
             <plugin>
                 <groupId>com.sebastian-daschner</groupId>
                 <artifactId>jaxrs-analyzer-maven-plugin</artifactId>
-                <version>0.12</version>
+                <version>0.14</version>
                 <executions>
                     <execution>
-                        <goals>
-                            <goal>analyze-jaxrs</goal>
-                        </goals>
+                        <phase>package</phase>
+                        <goals><goal>analyze-jaxrs</goal></goals>
                         <configuration>
                             <backend>swagger</backend>
                         </configuration>
@@ -49,5 +54,5 @@
                 </executions>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 </project>
