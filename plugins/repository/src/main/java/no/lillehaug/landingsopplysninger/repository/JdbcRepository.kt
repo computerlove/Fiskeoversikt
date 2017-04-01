@@ -49,7 +49,7 @@ class JdbcRepository(val database: Database) : LandingsopplysningerRepository {
         val where = getWhere(landingsdataQuery)
         val params = getParams(landingsdataQuery)
         return database.readOnly {
-            val ps = it.prepareStatement("select * from leveringslinje ${where} order by landingsdato,fiskeslag,kvalitet")
+            val ps = it.prepareStatement("select * from leveringslinje ${where} order by landingsdato desc,fiskeslag,kvalitet")
             var i = 1
             for (param in params) {
                 ps.setObject(i++, param)
