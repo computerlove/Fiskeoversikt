@@ -1,19 +1,20 @@
 import * as React from 'react';
-import LandingsdataContainer from "./components/LandingsdataContainer";
+import Loader from "./components/Loader";
 
 interface AppProps {}
 export default class App extends React.Component<AppProps, {}> {
     render(){
         return (
             <div>
-                <header className="mainHeader">
-                    <h1>Landingsdata</h1>
+                <header className="header">
+                    <h1 className="header__title">Landingsdata</h1>
+                    <button id="butRefresh" className="headerButton" aria-label="Refresh"></button>
                 </header>
-                <section className="container main-container">
-                    <div className="main-content">
-                        <LandingsdataContainer />
-                    </div>
-                </section>
+
+                <main className="main">
+
+                </main>
+                <Loader/>
             </div>
         );
     }
