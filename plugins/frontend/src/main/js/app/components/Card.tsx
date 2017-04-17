@@ -6,10 +6,15 @@ interface CardProps {
 }
 export default class Card extends React.Component<CardProps, {}> {
     render(){
+        const ld = this.props.landingsdata;
+        const dato = ld.landingsdato.toString();
         return (
-            <div className="card">
-
-            </div>
+            <article className="card" >
+                <h1>
+                    <span className="fartøy">{ld.fartøy}</span>
+                    <span className="landingsdato">{dato}</span>
+                </h1>
+            </article>
         );
     }
 }

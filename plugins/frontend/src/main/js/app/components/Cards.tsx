@@ -15,7 +15,11 @@ class Cards extends React.Component<CardsProps, {}> {
     render(){
         return (
             <section className="cards">
-                {this.props.landingsdata.map(ld => <Card landingsdata={ld} />)}
+                {this.props.landingsdata
+                    .map(ld =>
+                        <Card
+                            landingsdata={ld}
+                            key={ld.landingsdato.toString() + ld.fartøy} />)}
             </section>
         );
     }
