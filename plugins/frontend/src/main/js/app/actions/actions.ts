@@ -1,5 +1,6 @@
 
 import {getData} from "../server/server";
+
 export enum ActionType {
     INIT,
     FETCH_DATA,
@@ -17,3 +18,13 @@ export const fetchData = (num: number = 3, start: number = 0) => (dispatch) => {
         }))
 };
 
+export const loadMore = (start: number) => (dispatch) => {
+    dispatch({
+        type: ActionType.FETCH_DATA,
+    });
+    getData(3, start)
+        .then(landingsdata => dispatch({
+            type: ActionType.RECIEVE_DATA,
+            data: landingsdata
+        }))
+};

@@ -33,7 +33,7 @@ export class Tilstand {
     }
 
     withData (landingsdata: LandingsdataByLandingdate[]) {
-        return new Tilstand(landingsdata, this.laster);
+        return new Tilstand(this.landingsdata.concat(landingsdata), this.laster);
     }
 }
 
