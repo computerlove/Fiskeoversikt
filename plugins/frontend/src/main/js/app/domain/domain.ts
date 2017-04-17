@@ -14,21 +14,9 @@ export class Leveringslinje {
     ){}
 }
 
-export class Landingsdata {
-    constructor(
-        readonly fartøy: Fartøy[]
-    ){}
-}
-
-export class Fartøy {
-    constructor(
-       readonly id: string,
-       readonly dataByDate: LandingsdataByLandingdate[]
-    ) {}
-}
-
 export class LandingsdataByLandingdate {
     constructor(
+      readonly fartøy: string,
       readonly landingsdato: LocalDate,
       readonly leveringslinjer: Array<Leveringslinje>
     ){}
@@ -36,7 +24,7 @@ export class LandingsdataByLandingdate {
 
 export class Tilstand {
     constructor(
-        readonly landingsdata: Landingsdata,
+        readonly landingsdata: LandingsdataByLandingdate[] = [],
         readonly laster: boolean = true
     ) {}
 
@@ -44,8 +32,8 @@ export class Tilstand {
         return new Tilstand(this.landingsdata, laster)
     }
 
-    withData (data: Landingsdata) {
-        return new Tilstand(data, this.laster);
+    withData (landingsdata: LandingsdataByLandingdate[]) {
+        return new Tilstand(landingsdata, this.laster);
     }
 }
 
