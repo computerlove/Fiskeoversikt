@@ -1,6 +1,6 @@
 package no.lillehaug.landingsopplysninger.repository
 
-import no.lillehaug.landingsopplysninger.api.LandingsdataQuery
+import no.lillehaug.landingsopplysninger.api.LandingsdataFraTilQuery
 import no.lillehaug.landingsopplysninger.api.Leveringslinje
 import no.lillehaug.landingsopplysninger.repository.database.Database
 import org.junit.jupiter.api.BeforeAll
@@ -33,7 +33,7 @@ class JdbcRepositoryTest {
     @Test fun testTilDato(){
         repository.lagreLeveranselinjer(testData)
         val tilDato = LocalDate.of(2016, 3, 20)
-        val leveranselinjer = repository.alleLeveranselinjer(LandingsdataQuery(null, tilDato))
+        val leveranselinjer = repository.alleLeveranselinjer(LandingsdataFraTilQuery(null, tilDato))
         val max = leveranselinjer.map { it.landingsdato }.max()
         assertEquals(tilDato, max)
     }
@@ -41,7 +41,7 @@ class JdbcRepositoryTest {
     @Test fun testFraDato(){
         repository.lagreLeveranselinjer(testData)
         val fraDato = LocalDate.of(2016, 3, 19)
-        val leveranselinjer = repository.alleLeveranselinjer(LandingsdataQuery(fraDato, null))
+        val leveranselinjer = repository.alleLeveranselinjer(LandingsdataFraTilQuery(fraDato, null))
         val min = leveranselinjer.map { it.landingsdato }.min()
         assertEquals(fraDato, min)
     }
@@ -50,11 +50,35 @@ class JdbcRepositoryTest {
         repository.lagreLeveranselinjer(testData)
         val fraDato = LocalDate.of(2016, 3, 19)
         val tilDato = LocalDate.of(2016, 3, 22)
-        val leveranselinjer = repository.alleLeveranselinjer(LandingsdataQuery(fraDato, tilDato))
+        val leveranselinjer = repository.alleLeveranselinjer(LandingsdataFraTilQuery(fraDato, tilDato))
         val min = leveranselinjer.map { it.landingsdato }.min()
         val max = leveranselinjer.map { it.landingsdato }.max()
         assertEquals(fraDato, min)
         assertEquals(tilDato, max)
+    }
+
+    @Test fun testNum() {
+        repository.lagreLeveranselinjer(testData)
+
+        val leveranselinjer = repository.alleLeveranselinjerByDates(3, 0)
+                .map { it.landingsdato }
+                .distinct()
+        assertEquals(
+                listOf(LocalDate.of(2016, 3, 29), LocalDate.of(2016, 3, 28), LocalDate.of(2016, 3, 22)),
+                leveranselinjer
+        )
+    }
+
+    @Test fun testNumAndOffset() {
+        repository.lagreLeveranselinjer(testData)
+
+        val leveranselinjer = repository.alleLeveranselinjerByDates(3, 2)
+                .map { it.landingsdato }
+                .distinct()
+        assertEquals(
+                listOf(LocalDate.of(2016, 3, 22), LocalDate.of(2016, 3, 21), LocalDate.of(2016, 3, 20)),
+                leveranselinjer
+        )
     }
 
     val testData = listOf(

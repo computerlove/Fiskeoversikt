@@ -1,6 +1,6 @@
 package no.lillehaug.landingsopplysninger.repository
 
-import no.lillehaug.landingsopplysninger.api.LandingsdataQuery
+import no.lillehaug.landingsopplysninger.api.LandingsdataFraTilQuery
 import no.lillehaug.landingsopplysninger.api.LandingsopplysningerRepository
 import no.lillehaug.landingsopplysninger.api.Leveringslinje
 import no.lillehaug.landingsopplysninger.api.LeveringslinjeWithId
@@ -15,10 +15,10 @@ class JdbcRepository(val database: Database) : LandingsopplysningerRepository {
     val log = LoggerFactory.getLogger(JdbcRepository::class.java)
 
     override fun alleLeveranselinjer(): List<LeveringslinjeWithId> {
-        return this.alleLeveranselinjer(no.lillehaug.landingsopplysninger.api.LandingsdataQuery(null, null))
+        return this.alleLeveranselinjer(no.lillehaug.landingsopplysninger.api.LandingsdataFraTilQuery(null, null))
     }
 
-    private fun getParams(landingsdataQuery: LandingsdataQuery) : List<Any> {
+    private fun getParams(landingsdataQuery: LandingsdataFraTilQuery): List<Any> {
         val params = mutableListOf<Any>()
         if(landingsdataQuery.fraDato != null){
             params.add(Date.valueOf(landingsdataQuery.fraDato))
@@ -27,10 +27,10 @@ class JdbcRepository(val database: Database) : LandingsopplysningerRepository {
             params.add(Date.valueOf(landingsdataQuery.tilDato))
         }
 
-        return params
+        return params.toList()
     }
 
-    private fun getWhere(landingsdataQuery: LandingsdataQuery) : String {
+    private fun getWhere(landingsdataQuery: LandingsdataFraTilQuery) : String {
         if(landingsdataQuery.tilDato == null && landingsdataQuery.fraDato == null) {
             return ""
         }
@@ -45,32 +45,45 @@ class JdbcRepository(val database: Database) : LandingsopplysningerRepository {
         return parts.joinToString(" AND ", "WHERE ")
     }
 
-    override fun alleLeveranselinjer(landingsdataQuery: LandingsdataQuery): List<LeveringslinjeWithId> {
+    override fun alleLeveranselinjer(landingsdataQuery: LandingsdataFraTilQuery): List<LeveringslinjeWithId> {
         val where = getWhere(landingsdataQuery)
         val params = getParams(landingsdataQuery)
+        return doQuery(params, where)
+    }
+
+    override fun alleLeveranselinjerByDates(num: Int, start: Int): List<LeveringslinjeWithId> {
+        val where = "where landingsdato in (select distinct landingsdato from leveringslinje order by landingsdato desc limit ? offset ?)"
+        return doQuery(listOf(num, start), where)
+    }
+
+    private fun doQuery(params: List<Any>, where: String): List<LeveringslinjeWithId> {
+        val sql = "select * from leveringslinje ${where} order by landingsdato desc,fiskeslag,kvalitet"
+
         return database.readOnly {
-            val ps = it.prepareStatement("select * from leveringslinje ${where} order by landingsdato desc,fiskeslag,kvalitet")
-            var i = 1
-            for (param in params) {
-                ps.setObject(i++, param)
-            }
-            val rs = ps.executeQuery()
-            trywr(rs) {
-                val results = mutableListOf<LeveringslinjeWithId>()
-                while (rs.next()) {
-                    results.add(
-                            LeveringslinjeWithId(
-                                    rs.getObject("id", UUID::class.java),
-                                    rs.getString("fartøy"),
-                                    rs.getDate("landingsdato").toLocalDate(),
-                                    rs.getString("mottak"),
-                                    rs.getString("fiskeslag"),
-                                    rs.getString("tilstand"),
-                                    rs.getString("størrelse"),
-                                    rs.getString("kvalitet"),
-                                    rs.getDouble("nettovekt")))
+            val ps = it.prepareStatement(sql)
+            trywr(ps) {
+                var i = 1
+                for (param in params) {
+                    ps.setObject(i++, param)
                 }
-                results.toList()
+                val rs = ps.executeQuery()
+                trywr(rs) {
+                    val results = mutableListOf<LeveringslinjeWithId>()
+                    while (rs.next()) {
+                        results.add(
+                                LeveringslinjeWithId(
+                                        rs.getObject("id", UUID::class.java),
+                                        rs.getString("fartøy"),
+                                        rs.getDate("landingsdato").toLocalDate(),
+                                        rs.getString("mottak"),
+                                        rs.getString("fiskeslag"),
+                                        rs.getString("tilstand"),
+                                        rs.getString("størrelse"),
+                                        rs.getString("kvalitet"),
+                                        rs.getDouble("nettovekt")))
+                    }
+                    results.toList()
+                }
             }
         }
     }

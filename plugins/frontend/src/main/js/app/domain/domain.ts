@@ -26,7 +26,7 @@ export class Landingsdata {
 export class Tilstand {
     constructor(
         public landingsdata: Landingsdata,
-        public laster: boolean = false
+        public laster: boolean = true
     ) {}
 
     withLaster (laster: boolean) {
