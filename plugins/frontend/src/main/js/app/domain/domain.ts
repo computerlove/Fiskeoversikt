@@ -2,31 +2,42 @@ import {LocalDate} from 'js-joda';
 
 export class Leveringslinje {
     constructor(
-        public id: string,
-        public fartoy: string,
-        public landingsdato: LocalDate,
-        public mottak: string,
-        public fiskeslag: string,
-        public tilstand: string,
-        public storrelse: string,
-        public kvalitet: string,
-        public nettovekt: number
+        readonly id: string,
+        readonly fartoy: string,
+        readonly landingsdato: LocalDate,
+        readonly mottak: string,
+        readonly fiskeslag: string,
+        readonly tilstand: string,
+        readonly storrelse: string,
+        readonly kvalitet: string,
+        readonly nettovekt: number
     ){}
 }
 
 export class Landingsdata {
     constructor(
-        public fraDato: LocalDate,
-        public tilDato: LocalDate,
-        public fartoy: Array<string>,
-        public leveringslinjer: Array<Leveringslinje>
+        readonly fartøy: Fartøy[]
+    ){}
+}
+
+export class Fartøy {
+    constructor(
+       readonly id: string,
+       readonly dataByDate: LandingsdataByLandingdate[]
+    ) {}
+}
+
+export class LandingsdataByLandingdate {
+    constructor(
+      readonly landingsdato: LocalDate,
+      readonly leveringslinjer: Array<Leveringslinje>
     ){}
 }
 
 export class Tilstand {
     constructor(
-        public landingsdata: Landingsdata,
-        public laster: boolean = true
+        readonly landingsdata: Landingsdata,
+        readonly laster: boolean = true
     ) {}
 
     withLaster (laster: boolean) {

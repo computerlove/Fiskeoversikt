@@ -23,7 +23,7 @@ class LandingsopplysningerResource (val repository: LandingsopplysningerReposito
 
     @Path("/")
     @GET
-    fun landingsdata(@QueryParam("num") @DefaultValue("5") num: Int,
+    fun landingsdata(@QueryParam("num") @DefaultValue("3") num: Int,
                      @QueryParam("start") @DefaultValue("0") start: Int) : Response {
         return Response.status(Response.Status.OK)
                 .entity(LandingsdataByDate.from(repository
