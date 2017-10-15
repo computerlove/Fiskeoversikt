@@ -1,7 +1,5 @@
 package no.lillehaug.landingsopplysninger.rest
 
-import no.lillehaug.landingsopplysninger.api.LandingsdataQuery
-import no.lillehaug.landingsopplysninger.api.LandingsopplysningerRepository
 import no.lillehaug.landingsopplysninger.representation.Landingsdata
 import no.lillehaug.landingsopplysninger.representation.Leveringslinje
 import java.time.LocalDate

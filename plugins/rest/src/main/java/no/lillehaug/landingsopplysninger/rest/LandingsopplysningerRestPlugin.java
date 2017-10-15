@@ -1,6 +1,5 @@
 package no.lillehaug.landingsopplysninger.rest;
 
-import no.lillehaug.landingsopplysninger.api.LandingsopplysningerRepository;
 import org.kantega.reststop.api.Export;
 import org.kantega.reststop.api.Plugin;
 import org.kantega.reststop.jaxrsapi.ApplicationBuilder;
