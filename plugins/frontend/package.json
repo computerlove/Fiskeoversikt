@@ -36,11 +36,11 @@
     "@types/react-redux": "4.4.35",
     "@types/redux": "3.6.31",
     "@types/redux-thunk": "2.1.31",
-    "awesome-typescript-loader": "^3.0.0-beta.18",
+    "awesome-typescript-loader": "3.4.1",
     "source-map-loader": "0.1.6",
     "node-sass": "4.3.0",
     "nodemon": "1.11.0",
     "typescript": "2.1.5",
-    "webpack": "beta"
+    "webpack": "3.10.0"
   }
 }
