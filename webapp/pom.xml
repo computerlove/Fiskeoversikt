@@ -189,13 +189,13 @@
                     <plugin>
                         <groupId>io.fabric8</groupId>
                         <artifactId>docker-maven-plugin</artifactId>
-                        <version>0.18.1</version>
+                        <version>0.24.0</version>
                         <executions>
                             <execution>
                                 <id>start</id>
                                 <phase>package</phase>
                                 <goals>
-                                    <goal>build-nofork</goal>
+                                    <goal>build</goal>
                                     <!--<goal>push</goal>-->
                                 </goals>
                             </execution>
@@ -207,7 +207,7 @@
                                     <alias>landingsopplysninger</alias>
                                     <build>
                                         <maintainer>marvin@bredal-lillehaug.no</maintainer>
-                                        <from>openjdk:latest</from>
+                                        <from>openjdk:8-jdk</from>
                                         <assembly>
                                             <descriptor>docker-assembly.xml</descriptor>
                                         </assembly>
