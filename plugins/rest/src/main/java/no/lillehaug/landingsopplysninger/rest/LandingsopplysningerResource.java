@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 
 @Path("api/landingsdata")
 @Produces(MediaType.APPLICATION_JSON)
-class LandingsopplysningerResource {
+public class LandingsopplysningerResource {
 
     private final LandingsopplysningerRepository repository;
 
