@@ -12,15 +12,15 @@ import org.slf4j.LoggerFactory
 class ScrapingJob(val scraper: Scraper, val repository: LandingsopplysningerRepository, val registrations: List<String>, val healthCheckRegistry: HealthCheckRegistry, val metricRegistry: MetricRegistry) {
     val log = LoggerFactory.getLogger(javaClass)
     var previousRunSuccess = true;
-    val timer = Timer()
+    private val timer = Timer()
 
     init {
         healthCheckRegistry.register("ScrapingJobHealthCheck", object: HealthCheck() {
             override fun check(): Result {
-                if(previousRunSuccess) {
-                    return Result.healthy()
+                return if(previousRunSuccess) {
+                    Result.healthy()
                 } else {
-                    return Result.unhealthy("ScrapingJob failed")
+                    Result.unhealthy("ScrapingJob failed")
                 }
             }
         })

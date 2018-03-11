@@ -3,6 +3,7 @@ package no.lillehaug.landingsopplysninger.scrape.parse
 import no.lillehaug.landingsopplysninger.api.Leveringslinje
 import org.apache.commons.io.IOUtils
 import org.junit.jupiter.api.Test
+import java.nio.charset.Charset
 import java.time.LocalDate
 import kotlin.test.assertEquals
 
@@ -11,9 +12,9 @@ class ParseTest {
     @Test
     fun testAssert() {
         val url = "http://www.rafisklaget.no/portal/pls/portal/PORTAL.LANDINGSOPPLYSNING.show"
-        val response = IOUtils.toString(javaClass.getResourceAsStream("/venus.html"))
+        val response = IOUtils.toString(javaClass.getResourceAsStream("/venus.html"), Charset.defaultCharset())
         val parser = Parser(url)
-        val parseResult = parser.parseFromHtml(response)
+        val parseResult = parser.parseFromHtml(response, "N 0027SG")
 
         assertEquals(parseResult, listOf(
                 Leveringslinje("N 0027SG", LocalDate.of(2016, 3, 29), "Steigen Sjømat As (N869)", "Hyse", "Sluh", "-0,8 Kg", "A", 1.0),
@@ -82,9 +83,9 @@ class ParseTest {
 
     @Test fun testDec() {
         val url = "http://www.rafisklaget.no/portal/pls/portal/PORTAL.LANDINGSOPPLYSNING.show"
-        val response = IOUtils.toString(javaClass.getResourceAsStream("/english.html"))
+        val response = IOUtils.toString(javaClass.getResourceAsStream("/english.html"), Charset.defaultCharset())
         val parser = Parser(url)
-        val parseResult = parser.parseFromHtml(response)
+        val parseResult = parser.parseFromHtml(response, "N 0027SG")
 
         assertEquals(parseResult, listOf(
                 Leveringslinje("N 0027SG", LocalDate.of(2016, 12, 10), "Steigen Sjømat As (N869)", "Breiflabb", "Sluh", "4,0+ Kg", "A", 11.0),
