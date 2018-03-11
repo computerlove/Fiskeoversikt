@@ -10,6 +10,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.MonoSink;
+import reactor.core.scheduler.Scheduler;
+import reactor.core.scheduler.Schedulers;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -22,6 +24,7 @@ import java.util.stream.Stream;
 public class JDBCRepository implements LandingsopplysningerRepository {
     private static final Logger logger = LoggerFactory.getLogger(JDBCRepository.class);
     private final Database database;
+    private final Scheduler single = Schedulers.single();
 
     public JDBCRepository(Database database) {
         this.database = database;
@@ -34,14 +37,14 @@ public class JDBCRepository implements LandingsopplysningerRepository {
 
     @Override
     public Flux<LeveringslinjeWithId> alleLeveranselinjer(LandingsdataQuery query) {
-        return database.asyncReadonlyFlux((Connection c, FluxSink<LeveringslinjeWithId> sink) -> {
-            try (PreparedStatement ps = c.prepareStatement("select * from leveringslinje " + getWhere(query) +" order by landingsdato desc,fiskeslag,kvalitet")){
+        Flux<LeveringslinjeWithId> leveringslinjeWithIdFlux = database.asyncReadonlyFlux((Connection c, FluxSink<LeveringslinjeWithId> sink) -> {
+            try (PreparedStatement ps = c.prepareStatement("select * from leveringslinje " + getWhere(query) + " order by landingsdato desc,fiskeslag,kvalitet")) {
                 List<Object> params = getParams(query);
                 int i = 1;
                 for (Object param : params) {
                     ps.setObject(i++, param);
                 }
-                try(ResultSet rs = ps.executeQuery()) {
+                try (ResultSet rs = ps.executeQuery()) {
                     while (rs.next()) {
                         sink.next(
                                 new LeveringslinjeWithId(
@@ -63,10 +66,13 @@ public class JDBCRepository implements LandingsopplysningerRepository {
                 sink.complete();
             }
         });
+        leveringslinjeWithIdFlux.publishOn(single);
+        return leveringslinjeWithIdFlux;
     }
 
     @Override
     public Flux<LeveringslinjeWithId> lagreLeveranselinjer(Flux<Leveringslinje> leveringslinjer) {
+        leveringslinjer.publishOn(single);
         return database.asyncTransactionalFlux((Connection c, FluxSink<LeveringslinjeWithId> sink) -> {
             try(PreparedStatement ps = c.prepareStatement("insert into leveringslinje(id, fartøy, landingsdato, mottak, fiskeslag, tilstand, størrelse, kvalitet, nettovekt) values (?,?,?,?,?,?,?,?,?)")) {
                 leveringslinjer.subscribe(l -> {
