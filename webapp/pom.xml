@@ -222,6 +222,8 @@
                                         <cmd>
                                             <shell>
                                                 java \
+                                                -Djava.awt.headless=true \
+                                                -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 \
                                                 -Dlogback.configurationFile=/opt/landingsopplysninger/conf/logback.xml \
                                                 -jar /opt/landingsopplysninger/start.jar \
                                                 --config /opt/landingsopplysninger/conf/landingsopplysninger-webapp.conf \

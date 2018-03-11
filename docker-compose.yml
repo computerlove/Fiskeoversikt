@@ -7,5 +7,6 @@ services:
       JAVA_OPTS: "-Djava.awt.headless=true"
     ports:
       - "9080:8080"
+#      - "8000:8000"
     volumes:
       - "/data/landingsopplysninger/data:/opt/landingsopplysninger/data"
