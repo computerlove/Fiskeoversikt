@@ -2,13 +2,14 @@ package no.lillehaug.landingsopplysninger.scrape.parse
 
 import no.lillehaug.landingsopplysninger.api.Leveringslinje
 import org.apache.commons.io.IOUtils
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import kotlin.test.assertEquals
 
 class ParseTest {
 
-    @Test fun testAssert() {
+    @Test
+    fun testAssert() {
         val url = "http://www.rafisklaget.no/portal/pls/portal/PORTAL.LANDINGSOPPLYSNING.show"
         val response = IOUtils.toString(javaClass.getResourceAsStream("/venus.html"))
         val parser = Parser(url)
