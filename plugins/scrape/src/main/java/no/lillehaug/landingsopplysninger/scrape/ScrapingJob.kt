@@ -9,9 +9,9 @@ import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.impl.client.HttpClients
 import org.slf4j.LoggerFactory
 
-class ScrapingJob(val scraper: Scraper, val repository: LandingsopplysningerRepository, val registrations: List<String>, val healthCheckRegistry: HealthCheckRegistry, val metricRegistry: MetricRegistry) {
-    val log = LoggerFactory.getLogger(javaClass)
-    var previousRunSuccess = true;
+class ScrapingJob(private val scraper: Scraper, private val repository: LandingsopplysningerRepository, val registrations: List<String>, val healthCheckRegistry: HealthCheckRegistry, val metricRegistry: MetricRegistry) {
+    private val log = LoggerFactory.getLogger(javaClass)
+    var previousRunSuccess = true
     private val timer = Timer()
 
     init {
@@ -49,7 +49,9 @@ class ScrapingJob(val scraper: Scraper, val repository: LandingsopplysningerRepo
     private fun scrapeForRegistration(registration: String, httpclient: CloseableHttpClient) {
         log.info("Running scrapeForRegistrations for {}", registration)
         val landinger = scraper.scrapeForRegistration(registration, httpclient)
+        log.debug("Landinger: {}", landinger)
         val forrigeLanding = repository.forrigeLandingFor(registration)
+        log.debug("Forrige landing: {}", forrigeLanding)
         val nyeLandinger = landinger.filter { it.landingsdato.isAfter(forrigeLanding) }
         log.info("Nye landinger: {}", nyeLandinger)
         repository.lagreLeveranselinjer(nyeLandinger)
