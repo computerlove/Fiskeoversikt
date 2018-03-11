@@ -57,12 +57,6 @@
                     <plugins>
                         <plugin>
                             <groupId>no.lillehaug.landingsopplysninger</groupId>
-                            <artifactId>api-representation</artifactId>
-                            <version>${project.version}</version>
-                        </plugin>
-
-                        <plugin>
-                            <groupId>no.lillehaug.landingsopplysninger</groupId>
                             <artifactId>landingsopplysninger-api</artifactId>
                             <version>${project.version}</version>
                         </plugin>
@@ -81,11 +75,11 @@
                             <artifactId>rest</artifactId>
                             <version>${project.version}</version>
                         </plugin>
-                        <plugin>
+                 <!--       <plugin>
                             <groupId>no.lillehaug.landingsopplysninger</groupId>
                             <artifactId>frontend</artifactId>
                             <version>${project.version}</version>
-                        </plugin>
+                        </plugin>-->
 
                         <plugin>
                             <groupId>org.kantega.reststop</groupId>
@@ -129,62 +123,27 @@
                             <version>${metrics.version}</version>
                         </plugin>
 
+                        <plugin>
+                            <groupId>org.kantega.reststop</groupId>
+                            <artifactId>reststop-jetty-plugin</artifactId>
+                            <version>${reststop.version}</version>
+                        </plugin>
                     </plugins>
 
                 </configuration>
                 <executions>
-                    <execution>
-                        <goals>
-                            <goal>resolve-plugins</goal>
-                            <goal>package-plugins</goal>
-                        </goals>
-                    </execution>
                     <execution>
                         <id>dist</id>
                         <goals>
                             <goal>dist</goal>
                         </goals>
                         <configuration>
-                            <containerDependencies>
-                                <dependency>
-                                    <groupId>ch.qos.logback</groupId>
-                                    <artifactId>logback-classic</artifactId>
-                                    <version>${logback.version}</version>
-                                </dependency>
-                                <dependency>
-                                    <groupId>org.slf4j</groupId>
-                                    <artifactId>slf4j-api</artifactId>
-                                    <version>${slf4j-api.version}</version>
-                                </dependency>
-                                <dependency>
-                                    <groupId>org.slf4j</groupId>
-                                    <artifactId>jul-to-slf4j</artifactId>
-                                    <version>${slf4j-api.version}</version>
-                                </dependency>
-                                <plugin>
-                                    <groupId>org.kantega.reststop</groupId>
-                                    <artifactId>reststop-servlet-api</artifactId>
-                                    <version>${reststop.version}</version>
-                                </plugin>
-                                <dependency>
-                                    <groupId>javax.servlet</groupId>
-                                    <artifactId>javax.servlet-api</artifactId>
-                                    <version>${javax.servlet-api.version}</version>
-                                </dependency>
-                            </containerDependencies>
-                            <bootstrapPlugins>
-                                <plugin>
-                                    <groupId>org.kantega.reststop</groupId>
-                                    <artifactId>reststop-jetty-plugin</artifactId>
-                                    <version>${reststop.version}</version>
-                                </plugin>
-                            </bootstrapPlugins>
                             <container>bootstrap</container>
-                            <!--<resources>
+                            <resources>
                                 <resource>
-                                    <directory>${basedir}/src/install/</directory>
+                                    <directory>${basedir}/src/dist/</directory>
                                 </resource>
-                            </resources>-->
+                            </resources>
                         </configuration>
                     </execution>
                 </executions>

@@ -18,23 +18,12 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>no.lillehaug.landingsopplysninger</groupId>
-            <artifactId>api-representation</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.kantega.reststop</groupId>
             <artifactId>reststop-jaxrs-api</artifactId>
             <version>${reststop.version}</version>
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
     </dependencies>
 
    <!-- <build>

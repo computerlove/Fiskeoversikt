@@ -16,9 +16,9 @@
         <module>api</module>
         <module>scrape</module>
         <module>repository</module>
-<!--        <module>rest</module>
-        <module>api-representation</module>
-        <module>frontend</module>-->
+        <module>rest</module>
+        <!--        <module>api-representation</module>
+                <module>frontend</module>-->
     </modules>
 
     <dependencies>
