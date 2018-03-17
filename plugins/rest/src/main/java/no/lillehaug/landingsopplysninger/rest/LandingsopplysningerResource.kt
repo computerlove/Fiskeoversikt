@@ -1,7 +1,7 @@
 package no.lillehaug.landingsopplysninger.rest
 
 import no.lillehaug.landingsopplysninger.api.LandingsopplysningerRepository
-import no.lillehaug.landingsopplysninger.representation.LandingsdataByDate
+import no.lillehaug.landingsopplysninger.representation.LandingsdataByDateAndVessel
 import no.lillehaug.landingsopplysninger.representation.Leveringslinje
 import java.time.LocalDate
 import javax.ws.rs.*
@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response
 
 @Path("api/landingsdata")
 @Produces(MediaType.APPLICATION_JSON)
-class LandingsopplysningerResource (val repository: LandingsopplysningerRepository){
+class LandingsopplysningerResource (private val repository: LandingsopplysningerRepository){
 
     @Path("leveringslinjer")
     @GET
@@ -26,7 +26,7 @@ class LandingsopplysningerResource (val repository: LandingsopplysningerReposito
     fun landingsdata(@QueryParam("num") @DefaultValue("3") num: Int,
                      @QueryParam("start") @DefaultValue("0") start: Int) : Response {
         return Response.status(Response.Status.OK)
-                .entity(LandingsdataByDate.from(repository
+                .entity(LandingsdataByDateAndVessel.from(repository
                             .alleLeveranselinjerByDates(num, start)
                 ))
                 .build()

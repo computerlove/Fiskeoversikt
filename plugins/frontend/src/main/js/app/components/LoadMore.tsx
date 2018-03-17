@@ -17,8 +17,10 @@ class LoadMore extends React.Component<LoadMoreProps, {}> {
     }
 }
 const mapStateToProps = (state: Tilstand) => {
+    const datoer = new Set(state.landingsdata
+                                .map(ld => ld.landingsdato.toString()));
     return {
-        numLoaded: state.landingsdata.length
+        numLoaded: datoer.size
     }
 };
 const mapDispatchToProps =  ({
