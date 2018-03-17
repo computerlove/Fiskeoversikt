@@ -6,7 +6,12 @@
     "sourceMap": true,
     "jsx": "react",
     "skipLibCheck": true,
-    "skipDefaultLibCheck": true
+    "skipDefaultLibCheck": true,
+    "lib": [
+      "es2015",
+      "es2016",
+      "dom",
+      "ScriptHost"]
   },
   "exclude": [
     "node_modules"

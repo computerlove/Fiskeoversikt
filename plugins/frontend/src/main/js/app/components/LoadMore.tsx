@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {connect} from "react-redux";
 import {Tilstand} from "../domain/domain";
-import {loadMore} from "../actions/actions";
+import {loadMore, loadMoreT} from "../actions/actions";
 
 interface LoadMoreProps {
     numLoaded: number,
-    loadMore: (number) => void
+    loadMore: loadMoreT
 }
 class LoadMore extends React.Component<LoadMoreProps, {}> {
     render(){

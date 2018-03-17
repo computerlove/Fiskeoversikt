@@ -7,6 +7,7 @@ export enum ActionType {
     RECIEVE_DATA
 }
 
+export type fetchDateT = (num?: number, start?: number) => any;
 export const fetchData = (num: number = 3, start: number = 0) => (dispatch) => {
     dispatch({
         type: ActionType.FETCH_DATA,
@@ -18,6 +19,7 @@ export const fetchData = (num: number = 3, start: number = 0) => (dispatch) => {
         }))
 };
 
+export type loadMoreT = (start: number) => any;
 export const loadMore = (start: number) => (dispatch) => {
     dispatch({
         type: ActionType.FETCH_DATA,

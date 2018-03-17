@@ -2,11 +2,11 @@ import * as React from 'react';
 import {connect} from "react-redux";
 import {LandingsdataByLandingdate, Tilstand} from "../domain/domain";
 import Card from "./Card";
-import {fetchData} from "../actions/actions";
+import {fetchData, fetchDateT} from "../actions/actions";
 
 interface CardsProps {
     landingsdata: LandingsdataByLandingdate[],
-    fetchData: Function
+    fetchData: fetchDateT
 }
 class Cards extends React.Component<CardsProps, {}> {
     componentDidMount() {
