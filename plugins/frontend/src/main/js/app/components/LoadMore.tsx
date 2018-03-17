@@ -10,7 +10,7 @@ interface LoadMoreProps {
 class LoadMore extends React.Component<LoadMoreProps, {}> {
     render(){
         return (
-            <button className="loadmore" onClick={(e) => this.props.loadMore(this.props.numLoaded)}>
+            <button className="card loadmore" onClick={(e) => this.props.loadMore(this.props.numLoaded)}>
                 Mer
             </button>
         );
