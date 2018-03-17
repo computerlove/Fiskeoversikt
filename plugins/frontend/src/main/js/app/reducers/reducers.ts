@@ -1,6 +1,5 @@
 import {ActionType} from "../actions/actions";
 import {Tilstand} from "../domain/domain";
-import {LocalDate} from 'js-joda';
 
 const InitialState = new Tilstand();
 
@@ -14,6 +13,10 @@ export default (state = InitialState, action) => {
             return state
                 .withLaster(false)
                 .withData(action.data);
+        case ActionType.RELOAD_DATA:
+            return state
+                .withLaster(false)
+                .withAllData(action.data);
         default:
             return state;
     }
