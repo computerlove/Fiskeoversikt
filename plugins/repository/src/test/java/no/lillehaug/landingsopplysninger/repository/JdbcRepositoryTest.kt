@@ -3,21 +3,23 @@ package no.lillehaug.landingsopplysninger.repository
 import no.lillehaug.landingsopplysninger.api.LandingsdataQuery
 import no.lillehaug.landingsopplysninger.api.Leveringslinje
 import no.lillehaug.landingsopplysninger.repository.database.Database
-import org.junit.Before
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
-import org.junit.Test
 import java.time.LocalDate
 
 class JdbcRepositoryTest {
     val database = Database.createTestDatabase()
     val repository = JdbcRepository(database)
 
-    @Before fun setup() {
+    @BeforeAll
+    fun setup() {
         database.clean()
         database.migrate()
     }
 
-    @Test fun insertAndGetAll() {
+    @Test
+    fun insertAndGetAll() {
 
         repository.lagreLeveranselinjer(testData)
         val retrievedData = repository.alleLeveranselinjer()

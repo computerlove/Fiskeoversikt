@@ -129,62 +129,50 @@
                             <version>${metrics.version}</version>
                         </plugin>
 
+                        <plugin>
+                            <groupId>org.kantega.reststop</groupId>
+                            <artifactId>reststop-jetty-plugin</artifactId>
+                            <version>${reststop.version}</version>
+                        </plugin>
                     </plugins>
 
+                    <containerDependencies>
+                        <dependency>
+                            <groupId>ch.qos.logback</groupId>
+                            <artifactId>logback-classic</artifactId>
+                            <version>${logback.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>slf4j-api</artifactId>
+                            <version>${slf4j-api.version}</version>
+                        </dependency>
+
+                        <dependency>
+                            <groupId>org.kantega.reststop</groupId>
+                            <artifactId>reststop-servlet-api</artifactId>
+                            <version>${reststop.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>javax.servlet</groupId>
+                            <artifactId>javax.servlet-api</artifactId>
+                            <version>${javax.servlet-api.version}</version>
+                        </dependency>
+                    </containerDependencies>
                 </configuration>
                 <executions>
-                    <execution>
-                        <goals>
-                            <goal>resolve-plugins</goal>
-                            <goal>package-plugins</goal>
-                        </goals>
-                    </execution>
                     <execution>
                         <id>dist</id>
                         <goals>
                             <goal>dist</goal>
                         </goals>
                         <configuration>
-                            <containerDependencies>
-                                <dependency>
-                                    <groupId>ch.qos.logback</groupId>
-                                    <artifactId>logback-classic</artifactId>
-                                    <version>${logback.version}</version>
-                                </dependency>
-                                <dependency>
-                                    <groupId>org.slf4j</groupId>
-                                    <artifactId>slf4j-api</artifactId>
-                                    <version>${slf4j-api.version}</version>
-                                </dependency>
-                                <dependency>
-                                    <groupId>org.slf4j</groupId>
-                                    <artifactId>jul-to-slf4j</artifactId>
-                                    <version>${slf4j-api.version}</version>
-                                </dependency>
-                                <plugin>
-                                    <groupId>org.kantega.reststop</groupId>
-                                    <artifactId>reststop-servlet-api</artifactId>
-                                    <version>${reststop.version}</version>
-                                </plugin>
-                                <dependency>
-                                    <groupId>javax.servlet</groupId>
-                                    <artifactId>javax.servlet-api</artifactId>
-                                    <version>${javax.servlet-api.version}</version>
-                                </dependency>
-                            </containerDependencies>
-                            <bootstrapPlugins>
-                                <plugin>
-                                    <groupId>org.kantega.reststop</groupId>
-                                    <artifactId>reststop-jetty-plugin</artifactId>
-                                    <version>${reststop.version}</version>
-                                </plugin>
-                            </bootstrapPlugins>
                             <container>bootstrap</container>
-                            <!--<resources>
+                            <resources>
                                 <resource>
-                                    <directory>${basedir}/src/install/</directory>
+                                    <directory>${basedir}/src/dist/</directory>
                                 </resource>
-                            </resources>-->
+                            </resources>
                         </configuration>
                     </execution>
                 </executions>
@@ -201,14 +189,14 @@
                     <plugin>
                         <groupId>io.fabric8</groupId>
                         <artifactId>docker-maven-plugin</artifactId>
-                        <version>0.18.1</version>
+                        <version>0.24.0</version>
                         <executions>
                             <execution>
                                 <id>start</id>
                                 <phase>package</phase>
                                 <goals>
-                                    <goal>build-nofork</goal>
-                                    <!--<goal>push</goal>-->
+                                    <goal>build</goal>
+                                    <goal>push</goal>
                                 </goals>
                             </execution>
                         </executions>
@@ -219,7 +207,7 @@
                                     <alias>landingsopplysninger</alias>
                                     <build>
                                         <maintainer>marvin@bredal-lillehaug.no</maintainer>
-                                        <from>openjdk:latest</from>
+                                        <from>openjdk:9-jdk</from>
                                         <assembly>
                                             <descriptor>docker-assembly.xml</descriptor>
                                         </assembly>
@@ -234,6 +222,9 @@
                                         <cmd>
                                             <shell>
                                                 java \
+                                                --add-modules java.xml.ws.annotation,java.xml.bind \
+                                                -Djava.awt.headless=true \
+                                                -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 \
                                                 -Dlogback.configurationFile=/opt/landingsopplysninger/conf/logback.xml \
                                                 -jar /opt/landingsopplysninger/start.jar \
                                                 --config /opt/landingsopplysninger/conf/landingsopplysninger-webapp.conf \

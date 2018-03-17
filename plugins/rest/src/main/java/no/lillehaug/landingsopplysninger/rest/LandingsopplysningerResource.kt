@@ -37,10 +37,10 @@ class LandingsopplysningerResource (val repository: LandingsopplysningerReposito
     }
 
     private fun localDate(date: String? ) : LocalDate? {
-        if(date == null) {
-            return null
+        return if(date == null) {
+            null
         } else {
-            return LocalDate.parse(date)
+            LocalDate.parse(date)
         }
     }
 }

@@ -5,20 +5,11 @@ const DEBUG = process.env.NODE_ENV !== 'production';
 
 module.exports = {
     entry: {
-        app : ['./src/main/js/main.tsx'],
-        vendor : [
-            'js-joda',
-            'react',
-            'react-dom',
-            'react-redux',
-            'redux',
-            'redux-thunk',
-            'web-request'
-        ]
+        app : ['./src/main/js/main.tsx']
     },
     output: {
         path: __dirname + '/target/classes/assets',
-        filename: 'bundle.js',
+        filename: '[name].bundle.js',
         devtoolModuleFilenameTemplate: 'webpack:///[absolute-resource-path]'
     },
     devtool: DEBUG ? 'cheap-module-eval-source-map' : 'source-map',
@@ -40,8 +31,15 @@ module.exports = {
 
         ]
     },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: { test: /[\\/]node_modules[\\/]/, name: "vendor", chunks: "all" }
+            }
+        }
+    },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.bundle.js' }),
+        /*new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.bundle.js' }),*/
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
