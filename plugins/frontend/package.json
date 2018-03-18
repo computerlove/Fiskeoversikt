@@ -8,7 +8,7 @@
   },
   "main": "src/main/js/main.tsx",
   "scripts": {
-    "watch-css": "nodemon -e css,scss -x \"npm run build-css\"",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\"",
     "watch-js": "webpack --progress --colors --watch",
     "watch": "npm run watch-css & npm run watch-js",
     "build-external-css": "node ./build-external-css.js",

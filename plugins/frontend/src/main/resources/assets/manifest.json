@@ -1,0 +1,25 @@
+{
+  "short_name": "Landingsopplysninger",
+  "name": "Landingsopplysninger",
+  "background_color": "#2196F3",
+  "theme_color": "#2196F3",
+  "display": "standalone",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/assets/images/torsk/torsk_48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "/assets/images/torsk/torsk_96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "/assets/images/torsk/torsk_192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ]
+}

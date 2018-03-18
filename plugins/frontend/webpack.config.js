@@ -5,14 +5,16 @@ const DEBUG = process.env.NODE_ENV !== 'production';
 
 module.exports = {
     entry: {
-        app : ['./src/main/js/main.tsx']
+        app : ['./src/main/js/main.tsx'],
+        init : ['./src/main/js/init.ts']
     },
     output: {
         path: __dirname + '/target/classes/assets',
         filename: '[name].bundle.js',
-        devtoolModuleFilenameTemplate: 'webpack:///[absolute-resource-path]'
+        devtoolModuleFilenameTemplate: 'webpack:///[absolute-resource-path]',
+        globalObject: "this" // https://github.com/webpack/webpack/issues/6642
     },
-    devtool: DEBUG ? 'cheap-module-eval-source-map' : 'source-map',
+    devtool: 'source-map',
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: [".ts", ".tsx", ".js", ".jsx"]
