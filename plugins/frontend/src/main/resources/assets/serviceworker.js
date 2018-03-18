@@ -1,4 +1,4 @@
-const CACHE_NAME = 'landingsopplysninger';
+const CACHE_NAME = 'landingsopplysninger-${git.commit.id.abbrev}';
 const urlsToCache = [
     '/',
     '/assets/styles.css',
@@ -69,6 +69,7 @@ self.addEventListener('activate', function(event) {
             return Promise.all(
                 cacheNames.map(function(cacheName) {
                     if (cacheWhitelist.indexOf(cacheName) === -1) {
+                        console.log("Removing " + cacheName);
                         return caches.delete(cacheName);
                     }
                 })
