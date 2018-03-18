@@ -58,7 +58,7 @@
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>run build</arguments>
+                            <arguments>run build-production</arguments>
                         <!--    <arguments>run build-production</arguments>
                             <environmentVariables>
                                 <NODE_ENV>${NODE_ENV}</NODE_ENV>

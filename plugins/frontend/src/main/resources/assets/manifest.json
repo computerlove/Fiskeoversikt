@@ -1,10 +1,11 @@
 {
-  "short_name": "Landingsopplysninger",
+  "short_name": "Fiske",
   "name": "Landingsopplysninger",
   "background_color": "#2196F3",
   "theme_color": "#2196F3",
   "display": "standalone",
   "orientation": "portrait",
+  "start_url": "/assets/index.html",
   "icons": [
     {
       "src": "/assets/images/torsk/torsk_48.png",
@@ -20,6 +21,11 @@
       "src": "/assets/images/torsk/torsk_192.png",
       "type": "image/png",
       "sizes": "192x192"
+    },
+    {
+      "src": "/assets/images/torsk/torsk_512.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ]
 }

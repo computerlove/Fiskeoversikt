@@ -35,6 +35,7 @@ class Database(val datasource : HikariDataSource) {
     }
 
     fun close() {
+        log.info("Closing database")
         datasource.close()
     }
 

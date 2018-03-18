@@ -3,6 +3,7 @@ const urlsToCache = [
     '/',
     '/assets/styles.css',
     '/assets/vendor.bundle.js',
+    '/assets/index.html',
     '/assets/app.bundle.js',
     '/assets/images/ic_refresh_white_24px.svg'
 ];

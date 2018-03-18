@@ -5,7 +5,8 @@ import {LandingsdataByLandingdate} from "../domain/domain";
 export function getData(num: number, start: number) : Promise<LandingsdataByLandingdate[]> {
     const params = `?num=${num}&start=${start}`;
     return new Promise<LandingsdataByLandingdate[]>((resolve, reject) => {
-        WebRequest.json<LandingsdataResponse>(window.location.href + 'api/landingsdata' + params)
+        const url = (window.location.origin + '/api/landingsdata');
+        WebRequest.json<LandingsdataResponse>(url + params)
             .then(response => {
                 resolve(transformLandingsdatoReponse(response))
             })
