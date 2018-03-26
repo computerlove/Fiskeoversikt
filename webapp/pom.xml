@@ -207,7 +207,7 @@
                                     <alias>landingsopplysninger</alias>
                                     <build>
                                         <maintainer>marvin@bredal-lillehaug.no</maintainer>
-                                        <from>openjdk:9-jdk</from>
+                                        <from>openjdk:10-jdk</from>
                                         <assembly>
                                             <descriptor>docker-assembly.xml</descriptor>
                                         </assembly>
