@@ -16,7 +16,6 @@ import javax.script.ScriptEngineManager
 
 val jsPattern = ".*innerHTML = \"(.*)\";.*".toRegex(RegexOption.MULTILINE).toPattern()
 val tagPattern = "\\</?[^>]*\\>".toRegex().toPattern()
-val engine = ScriptEngineManager().getEngineByName("nashorn")
 
 class Parser (private val url: String){
 
@@ -36,7 +35,7 @@ class Parser (private val url: String){
                 ))
 
         val action = get?.first
-        val httpPost = HttpPost("http://www.rafisklaget.no${action}")
+        val httpPost = HttpPost("https://www.rafisklaget.no${action}")
         httpPost.entity = entity
 
         return httpclient.execute(httpPost).use {
@@ -61,7 +60,10 @@ class Parser (private val url: String){
                 val stripped = tagPattern.matcher(expression)
                         .replaceAll("")
                         .replace("=", "")
-                val eval = engine.eval(stripped)
+                        .trim()
+                        .split(" + ")
+
+                val eval = Integer.parseInt(stripped[0]) + Integer.parseInt(stripped[1])
 
                 return Pair(action, eval.toString())
             }

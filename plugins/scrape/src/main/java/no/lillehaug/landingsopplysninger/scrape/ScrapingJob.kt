@@ -9,7 +9,11 @@ import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.impl.client.HttpClients
 import org.slf4j.LoggerFactory
 
-class ScrapingJob(private val scraper: Scraper, private val repository: LandingsopplysningerRepository, val registrations: List<String>, val healthCheckRegistry: HealthCheckRegistry, val metricRegistry: MetricRegistry) {
+class ScrapingJob(private val scraper: Scraper,
+                  private val repository: LandingsopplysningerRepository,
+                  val registrations: List<String>,
+                  val healthCheckRegistry: HealthCheckRegistry,
+                  val metricRegistry: MetricRegistry) {
     private val log = LoggerFactory.getLogger(javaClass)
     var previousRunSuccess = true
     private val timer = Timer()
