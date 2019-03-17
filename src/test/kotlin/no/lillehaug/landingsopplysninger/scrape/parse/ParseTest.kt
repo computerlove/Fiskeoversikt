@@ -2,17 +2,17 @@ package no.lillehaug.landingsopplysninger.scrape.parse
 
 import no.lillehaug.landingsopplysninger.api.Leveringslinje
 import org.apache.commons.io.IOUtils
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.nio.charset.Charset
 import java.time.LocalDate
-import kotlin.test.assertEquals
 
 class ParseTest {
 
     @Test
     fun testAssert() {
         val url = "http://www.rafisklaget.no/portal/pls/portal/PORTAL.LANDINGSOPPLYSNING.show"
-        val response = IOUtils.toString(javaClass.getResourceAsStream("/src/test/resources/venus.html"), Charset.defaultCharset())
+        val response = IOUtils.toString(javaClass.getResourceAsStream("/venus.html"), Charset.defaultCharset())
         val parser = Parser(url)
         val parseResult = parser.parseFromHtml(response, "N 0027SG")
 
@@ -67,6 +67,8 @@ class ParseTest {
                 Leveringslinje("N 0027SG", LocalDate.of(2016, 3, 19), "Steigen Sjømat As (N869)", "Torsk", "Sluh", "2,5+ Kg", "A", 280.0),
                 Leveringslinje("N 0027SG", LocalDate.of(2016, 3, 18), "Steigen Sjømat As (N869)", "Brosme", "Sluh", "1,0-2,0 Kg", "A", 3.0),
                 Leveringslinje("N 0027SG", LocalDate.of(2016, 3, 18), "Steigen Sjømat As (N869)", "Hyse", "Sluh", "-0,8 Kg", "A", 4.0),
+                Leveringslinje("N 0027SG", LocalDate.of(2016, 3, 18), "Steigen Sjømat As (N869)", "Sei", "Sluh", "2,3+ Kg", "A", 5.0),
+                Leveringslinje("N 0027SG", LocalDate.of(2016, 3, 18), "Steigen Sjømat As (N869)", "Sei", "Sluh", "1,2-2,3 Kg", "A", 4.0),
                 Leveringslinje("N 0027SG", LocalDate.of(2016, 3, 18), "Steigen Sjømat As (N869)", "Torsk", "Sluh", "6,0+ Kg", "A", 73.0),
                 Leveringslinje("N 0027SG", LocalDate.of(2016, 3, 18), "Steigen Sjømat As (N869)", "Torsk", "Sluh", "2,5+ Kg", "A", 173.0),
                 Leveringslinje("N 0027SG", LocalDate.of(2016, 3, 18), "Steigen Sjømat As (N869)", "Torsk", "Rogn", "Unspec", "Skadd", 27.0),
@@ -75,6 +77,7 @@ class ParseTest {
                 Leveringslinje("N 0027SG", LocalDate.of(2016, 3, 17), "Steigen Sjømat As (N869)", "Kveite", "Sluh", "-20 Kg", "A", 14.0),
                 Leveringslinje("N 0027SG", LocalDate.of(2016, 3, 17), "Steigen Sjømat As (N869)", "Kvitlange", "Sluh", "0,7-2 Kg", "A", 1.0),
                 Leveringslinje("N 0027SG", LocalDate.of(2016, 3, 17), "Steigen Sjømat As (N869)", "Sei", "Sluh", "2,3+ Kg", "A", 10.0),
+                Leveringslinje("N 0027SG", LocalDate.of(2016, 3, 17), "Steigen Sjømat As (N869)", "Sei", "Sluh", "1,2-2,3 Kg", "A", 8.0),
                 Leveringslinje("N 0027SG", LocalDate.of(2016, 3, 17), "Steigen Sjømat As (N869)", "Torsk", "Rogn", "Unspec", "A", 27.0),
                 Leveringslinje("N 0027SG", LocalDate.of(2016, 3, 17), "Steigen Sjømat As (N869)", "Torsk", "Sluh", "2,5+ Kg", "A", 275.0),
                 Leveringslinje("N 0027SG", LocalDate.of(2016, 3, 17), "Steigen Sjømat As (N869)", "Torsk", "Sluh", "6,0+ Kg", "A", 153.0)
@@ -83,7 +86,7 @@ class ParseTest {
 
     @Test fun testDec() {
         val url = "http://www.rafisklaget.no/portal/pls/portal/PORTAL.LANDINGSOPPLYSNING.show"
-        val response = IOUtils.toString(javaClass.getResourceAsStream("/src/test/resources/english.html"), Charset.defaultCharset())
+        val response = IOUtils.toString(javaClass.getResourceAsStream("/english.html"), Charset.defaultCharset())
         val parser = Parser(url)
         val parseResult = parser.parseFromHtml(response, "N 0027SG")
 
