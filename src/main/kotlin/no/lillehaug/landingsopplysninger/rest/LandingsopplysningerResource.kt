@@ -3,6 +3,7 @@ package no.lillehaug.landingsopplysninger.rest
 import no.lillehaug.landingsopplysninger.api.LandingsopplysningerRepository
 import no.lillehaug.landingsopplysninger.representation.LandingsdataByDateAndVessel
 import no.lillehaug.landingsopplysninger.representation.Leveringslinje
+import no.lillehaug.landingsopplysninger.scrape.ScrapingJob
 import java.time.LocalDate
 import javax.inject.Inject
 import javax.ws.rs.*
@@ -11,7 +12,12 @@ import javax.ws.rs.core.Response
 
 @Path("api/landingsdata")
 @Produces(MediaType.APPLICATION_JSON)
-class LandingsopplysningerResource (@Inject private val repository: LandingsopplysningerRepository){
+class LandingsopplysningerResource {
+    @Inject
+    lateinit var repository: LandingsopplysningerRepository
+
+    @Inject
+    lateinit var scrapingJob: ScrapingJob
 
     @Path("leveringslinjer")
     @GET
@@ -33,11 +39,9 @@ class LandingsopplysningerResource (@Inject private val repository: Landingsoppl
                 .build()
     }
 
-    private fun localDate(date: String? ) : LocalDate? {
-        return if(date == null) {
-            null
-        } else {
-            LocalDate.parse(date)
-        }
+    @Path("/run")
+    @GET
+    fun run(): Response {
+        return Response.ok().build()
     }
 }

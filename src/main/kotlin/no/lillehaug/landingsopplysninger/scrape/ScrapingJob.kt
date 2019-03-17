@@ -28,14 +28,13 @@ class ScrapingJob(private val scraper: Scraper,
     fun scrapeForRegistrations() {
        // timer.time({
             try {
-                val httpclient = HttpClients.createDefault();
-
-                log.info("Running scrapeForRegistrations for {}", registrations)
-                for (registration in registrations) {
-                    scrapeForRegistration(registration, httpclient)
+                HttpClients.createDefault().use {
+                    log.info("Running scrapeForRegistrations for {}", registrations)
+                    for (registration in registrations) {
+                        scrapeForRegistration(registration, it)
+                    }
                 }
-                // TODO use trywr
-                httpclient.close()
+
             } catch(e: Throwable) {
                 previousRunSuccess = false
                 log.error("Error scrapeForRegistrations", e)
