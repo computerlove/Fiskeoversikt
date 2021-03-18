@@ -42,6 +42,7 @@ class LandingsopplysningerResource {
     @Path("/run")
     @GET
     fun run(): Response {
+        scrapingJob.scrapeForRegistrations();
         return Response.ok().build()
     }
 }

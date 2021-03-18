@@ -72,6 +72,9 @@ class Parser (private val url: String){
     }
 
     fun parseFromHtml(html: String, fartøy: String)  : List<Leveringslinje> {
+        if(html.contains("Fant ingen landinger for ${fartøy}")) {
+            return emptyList();
+        }
         val document = Jsoup.parse(html)
         val tables = document.getElementsByTag("table")
         val lines = tables.select("tr")
